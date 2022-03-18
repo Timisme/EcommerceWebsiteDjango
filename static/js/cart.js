@@ -7,12 +7,38 @@ for (let i = 0; i< updateBtns.length; i++) {
         console.log(productId, action) 
 
         if(user === 'AnonymousUser'){
-            console.log('Not Logged in')
+            addCookieItem(productId, action)
         }else{
             updateUserOrder(productId, action)
         }
     })
 
+}
+
+function addCookieItem(productId, action){
+    // console.log('Not Logged in')
+
+    if(action === 'add'){
+        if(cart[productId] === undefined){
+            cart[productId] = {
+                'quantity': 1
+            }
+        } else {
+            cart[productId]['quantity'] += 1
+        }
+    }
+
+    if(action === 'remove'){
+        cart[productId]['quantity'] -= 1
+
+        if( cart[productId]['quantity'] <= 0){
+            delete cart[productId]
+        }
+    }
+
+    console.log('Cart:', cart);
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/";
+    location.reload();
 }
 
 function updateUserOrder(productId, action) {

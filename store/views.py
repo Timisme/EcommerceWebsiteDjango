@@ -3,6 +3,7 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import *
+from .utils import cookieCart
 # Create your views here.
 
 def store(request):
@@ -36,16 +37,20 @@ def cart(request):
         order, created = Order.objects.get_or_create(customer= customer, complete= False)
         items = order.orderitem_set.all()
     else: 
-        items = []
-        order = {
-            'get_cart_total':0,
-            'get_cart_items': 0,
-            'shipping': False,
-            }
+        cookieData = cookieCart(request= request)
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
+        
 
+    products = Product.objects.all()
+    # 將 cookie 中的 cart tag 對應的 value 存在 context, 讓 html render 顯示總價與數量
+    # (web server 存的數值於後端加工後再 render 到前端)
     context = {
+        'products': products,
         'items': items,
-        'order':  order 
+        'order':  order,
+        'cartItems': cartItems
     }
     return render(request, 'store/cart.html', context)
 
