@@ -51,3 +51,58 @@ def cookieCart(request):
         'order': order,
         'items': items,
     }
+
+def cartData(request):
+
+    if request.user.is_authenticated: 
+        customer = request.user.customer 
+        order, created = Order.objects.get_or_create(customer= customer, complete= False)
+        items = order.orderitem_set.all()
+    else: 
+        cookieData = cookieCart(request= request)
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
+
+    return {
+        'items': items,
+        'order':  order,
+        'cartItems': cartItems
+    }
+
+def guessOrder(request, data):
+
+    print('user is not logged in')
+    print('COOKIES:', request.COOKIES)
+
+    # 如果 user 未登入，則取得其填寫的名稱與電郵
+    name = data['form']['name']
+    email = data['form']['email']
+
+    # 取得 user cookie 儲存的 cart 資訊
+    cookieData = cookieCart(request)
+    items = cookieData['items']
+
+    # 取得該 user 的customer instance
+    customer, created = Customer.objects.get_or_create(
+        email = email,
+    )
+
+    # 修改 email 對應的 name
+    customer.name = name
+    customer.save()
+
+    # 取得該 customer 對應的 order 
+    order = Order.objects.create(
+        customer= customer,
+        complete= False,
+    )
+
+    for item in items:
+        product = Product.objects.get(id= item['product']['id'])
+        orderItem = OrderItem.objects.create(
+            product= product,
+            order= order,
+            quantity= item['quantity'],
+        )
+    return customer, order
