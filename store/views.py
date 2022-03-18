@@ -61,16 +61,19 @@ def checkout(request):
         order, created = Order.objects.get_or_create(customer= customer, complete= False)
         items = order.orderitem_set.all()
     else: 
-        items = []
-        order = {
-            'get_cart_total':0,
-            'get_cart_items': 0,
-            'shipping': False,
-            }
+        cookieData = cookieCart(request= request)
+        cartItems = cookieData['cartItems']
+        order = cookieData['order']
+        items = cookieData['items']
+        
+
+    products = Product.objects.all()
 
     context = {
+        'products': products,
         'items': items,
-        'order':  order 
+        'order':  order,
+        'cartItems': cartItems
     }
     
     return render(request, 'store/checkout.html', context)
