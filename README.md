@@ -19,3 +19,18 @@ A ecommerce website featured with carts and payment functionality from Django
     1. 利用 cookieCart 得到 user 的 cookieData 
 
     return json dict 紀錄 items, order, cartItems
+
+## utils: cookieCart
+
+1. 用 request.COOKIE 中 cart key load 成 json  
+2. 創建預設 order (購物車總價、購物車總數、是否寄送)
+3. 針對 cart 中每個 item 做 iteration 計算 2. 的數值
+4. 回傳 items, order, cartItems
+
+## cart.js 
+
+* 利用 data-product / data-action 自訂義設定 DOM 物件屬性，利用 view render 將 context 渲染到 HTML 的 DOM 上
+* JS 取得 DOM 物件後獲取該物件的 product-id 及 action，進行操作
+
+* 只有 checkout 完成 order 才會是 complete
+

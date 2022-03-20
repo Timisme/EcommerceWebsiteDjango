@@ -7,6 +7,8 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
+    get_cart_items = serializers.ReadOnlyField()
+    get_cart_total = serializers.ReadOnlyField()
     class Meta: 
         model = Order
         fields = '__all__'

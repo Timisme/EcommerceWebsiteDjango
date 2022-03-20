@@ -18,6 +18,23 @@ def store(request):
     }
     return render(request, 'store/store.html', context)
 
+def product_detail(request, pk):
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+    product = Product.objects.get(id= pk)
+
+    context = {
+        'product': product,
+        'order': order, 
+        'items': items,
+        'cartItems': cartItems,
+    }
+
+    return render(request, 'store/product_detail.html', context)
+
 def cart(request):
     # if the user is authenticed 
 
@@ -65,12 +82,15 @@ def updateItem(request):
     product = Product.objects.get(id= productId)
 
     order, created = Order.objects.get_or_create(customer= customer, complete= False)
-    # If multiple objects are found, get_or_create() raises MultipleObjectsReturned. If an object is not found, get_or_create() will instantiate and save a new object, returning a tuple of the new object and True
+    # If multiple objects are found, get_or_create() raises MultipleObjectsReturned. 
+    # If an object is not found, get_or_create() will instantiate and save a new object, 
+    # returning a tuple of the new object and True
+    # save() is not needed 
     
     orderItem, created = OrderItem.objects.get_or_create(order= order, product= product)
 
     if action == 'add':
-        orderItem.quantity = orderItem.quantity + 1 
+        orderItem.quantity = orderItem.quantity + 1
     elif action == 'remove':
         orderItem.quantity = orderItem.quantity - 1
 
