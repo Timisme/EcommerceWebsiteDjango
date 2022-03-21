@@ -1,16 +1,16 @@
 let updateBtns = document.getElementsByClassName('update-cart')
 
 for (let i = 0; i< updateBtns.length; i++) {
-    updateBtns[i].addEventListener('click', function(e) {
+    updateBtns[i].addEventListener('click', async function(e) {
         e.preventDefault()
         let productId = this.dataset.product
         let action = this.dataset.action 
         // console.log(productId, action) 
-        renderCart(productId, action)
+        await renderCart(productId, action) // 更新 db  && 更新購物車數量 
 
         if (updateBtns[i].classList.contains('update-item')){
 
-            renderItem(productId); // 知道是點哪個 product 
+            await renderItem(productId); // 更新 cart.html 頁面資運 && 知道是點哪個 product 
 
         }
     })
@@ -93,7 +93,8 @@ async function getCurrentOrderId(){
 
 
 async function renderCart(productId, action){
-    let cartTotal = document.getElementById('cart-total')
+    let cartTotal = document.getElementById('cart-total');
+    let cartItems = document.getElementsByClassName('cart-items');
     const currentOrderId = await getCurrentOrderId()
 
     if (user === 'AnonymousUser'){
@@ -110,7 +111,7 @@ async function renderCart(productId, action){
       // get 更新後的 order 總數，並更新 cart 的 innerText 
       let url = `/api/order-detail/${currentOrderId}`
       console.log(cartTotal)
-      fetch(url, {
+      await fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -123,6 +124,7 @@ async function renderCart(productId, action){
       .then((data) => {
         // console.log('fetch order data success:', data)
         cartTotal.innerText = data['get_cart_items']
+        cartItems.innerText = data['get_cart_items']
       })
     }
   }

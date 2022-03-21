@@ -33,7 +33,7 @@ async function renderItem(productId){
         // html 上有 prodcut id 的 cart-row, 但資料庫沒有 => 該 product 已經沒有在 cart 中
         // 移除 該 product 的 cart-row 
         cart_row = Array.from(document.querySelectorAll(`.cart-row`)).filter(element => element.dataset.product == productId)[0]
-        // console.log('cart_row:', cart_row)
+        console.log('cart_row:', cart_row) // should not be empty 
         cart_row.remove()
     } else {
         let item_quantity = item['quantity']
