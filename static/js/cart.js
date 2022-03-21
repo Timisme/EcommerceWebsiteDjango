@@ -5,13 +5,14 @@ for (let i = 0; i< updateBtns.length; i++) {
         e.preventDefault()
         let productId = this.dataset.product
         let action = this.dataset.action 
-        console.log(productId, action) 
+        // console.log(productId, action) 
         renderCart(productId, action)
-        // if(user === 'AnonymousUser'){
-        //     addCookieItem(productId, action)
-        // }else{
-        //     updateUserOrder(productId, action)
-        // }
+
+        if (updateBtns[i].classList.contains('update-item')){
+
+            renderItem(productId); // 知道是點哪個 product 
+
+        }
     })
 
 }
@@ -60,8 +61,8 @@ async function updateUserOrder(productId, action) {
         return response.json()
     })
     .then((data) => {
-        console.log('data:', data)
-        console.log('updateUserOrder Success')
+        // console.log('data:', data)
+        // console.log('updateUserOrder Success')
         // location.reload() // 刷新頁面 沒效率
     })
 }
@@ -120,7 +121,7 @@ async function renderCart(productId, action){
         return res.json()
       })
       .then((data) => {
-        console.log('fetch order data success:', data)
+        // console.log('fetch order data success:', data)
         cartTotal.innerText = data['get_cart_items']
       })
     }

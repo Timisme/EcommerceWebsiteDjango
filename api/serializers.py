@@ -19,6 +19,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    get_total = serializers.ReadOnlyField()
     class Meta: 
         model = OrderItem
         fields = '__all__'

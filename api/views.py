@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
 from store.models import * 
+from store.utils  import cartData
 
 @api_view(['GET'])
 def orderItemDetail(request, pk):
@@ -51,3 +52,12 @@ def orderCurrent(request):
         instance= order,
         many= False)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def listOrderItems(request):
+    customer = request.user.customer
+    order, created = Order.objects.get_or_create(customer= customer, complete= False)
+    orderItems = order.orderitem_set.all()
+    serializer = OrderItemSerializer(orderItems, many= True)
+    return Response(serializer.data)
+    
