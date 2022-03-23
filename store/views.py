@@ -4,8 +4,10 @@ import json
 import datetime
 from .models import *
 from .utils import cookieCart, cartData, guessOrder
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+# @login_required(login_url= 'login')
 def store(request):
 
     data = cartData(request)
