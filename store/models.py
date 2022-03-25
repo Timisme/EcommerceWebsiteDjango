@@ -1,7 +1,15 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import CharField
 
 # Create your models here.
+
+class Category(models.Model):
+	name = models.CharField(max_length= 50, default='General')
+
+	def __str__(self):
+		return self.name 
 
 class Customer(models.Model):
     user = models.OneToOneField(User, null= True, blank= True, on_delete= models.CASCADE)
@@ -19,6 +27,7 @@ class Product(models.Model):
 	)
 	digital = models.BooleanField(default=False,null=True, blank=True)
 	image = models.ImageField(null= True, blank= True)
+	category = models.ForeignKey(Category, on_delete= models.SET_NULL, blank=True, null= True)
 	
 	def __str__(self):
 		return self.name
@@ -84,3 +93,5 @@ class ShippingAddress(models.Model):
 
 	def __str__(self):
 		return self.address
+
+

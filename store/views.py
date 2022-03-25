@@ -26,16 +26,21 @@ def product_detail(request, pk):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
+
     product = Product.objects.get(id= pk)
 
-    context = {
-        'product': product,
-        'order': order, 
-        'items': items,
-        'cartItems': cartItems,
-    }
+    data['product'] = product
 
-    return render(request, 'store/product_detail.html', context)
+    return render(request, 'store/product_detail.html', context= data)
+
+def showCategory(request, pk):
+
+    data = cartData(request)
+    # category = Category.objects.get(id = pk)
+    products = Product.objects.filter(category__exact = pk)
+
+    data['products'] = products
+    return render(request, 'store/category.html', context= data)
 
 def cart(request):
     # if the user is authenticed 

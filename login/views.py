@@ -35,22 +35,24 @@ def loginPage(request):
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
+            print(username, password)
             user = authenticate(request, username= username, password= password)
 
             if user is not None:
                 login(request, user)
-                redirect('store')
+                print('successfully logged in!')
+                return redirect('store')
             
             else:
                 messages.info(request, 'username or password incorrect')
-        context = {
-            
-        }
-        return render(request, 'login.html', context)
+        
+        else:
+            context = {
+
+            }
+            return render(request, 'login.html', context)
+        
 
 def logoutUser(request):
     logout(request)
-    context = {
-
-    }
-    return render(request, 'login.html', context)
+    return redirect('/')
