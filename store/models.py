@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
@@ -26,7 +27,7 @@ class Product(models.Model):
 		decimal_places=2
 	)
 	digital = models.BooleanField(default=False,null=True, blank=True)
-	image = models.ImageField(null= True, blank= True)
+	image = models.ImageField(null= True, blank= True, upload_to= 'products/')
 	category = models.ForeignKey(Category, on_delete= models.SET_NULL, blank=True, null= True)
 	description = models.CharField(max_length=252, blank= True, null= True)
 	
