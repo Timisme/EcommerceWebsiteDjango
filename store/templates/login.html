@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    <section id="login" class="form-detail">
+        <h2>登入</h2>
+        <form action="" method="POST">
+            <span>帳號</span>
+            <input type="text" placeholder="你的帳號">
+            <span>密碼</span>
+            <input type="text" placeholder="你的密碼">
+            <button class="normal">登入</button>
+        </form>
+        <h4>沒有帳號？<a href="">立即註冊</a></h4>
+    </section>
+{% endblock content %}

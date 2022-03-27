@@ -1,6 +1,14 @@
 # EcommerceWebsiteDjango
 A ecommerce website featured with carts and payment functionality from Django 
 
+# 功能
+1. 購物車系統
+2. 會員系統
+3. 表單系統
+4. 商品分類
+5. 優惠券系統
+6. Session 暫存購物車
+
 ## Paypal 金流
 
 1. 使用 Paypal Sandbox 測試

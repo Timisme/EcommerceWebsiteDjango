@@ -1,0 +1,662 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Spartan', sans-serif;
+}
+
+.clickable {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;    
+    text-decoration: none; 
+    z-index: 1;
+}
+
+button.normal{
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 30px;
+    color : #000;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+}
+
+body{
+    width: 100%;
+}
+
+.section-p1{
+    padding: 40px 80px 
+}
+
+.section-m1{
+    margin: 40px 0;
+}
+
+#header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 80px;
+    background: #E3E6F3;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    /* x, y, radius */
+    position: sticky;
+    z-index: 999; /* 確保 header 不會被其他 element 覆蓋 */ 
+    top: 0; 
+    left: 0;
+}
+
+#navbar{
+    display: flex;
+    align-items: center; /* 次軸:column */
+    justify-content: center; /* 主軸:row(default) */
+}
+
+#navbar li{
+    list-style: none;  /* remove list icon */
+    padding: 0 20px; /*bottom top, left right*/
+    position: relative;
+}
+
+#navbar li a{
+    text-decoration: none; /* remove uderline */
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    transition: 0.3s ease; /* time delay with transition */
+}
+
+#navbar li a:hover,
+#navbar li a.active{ /* default active*/
+    color: #088178;
+}
+#navbar li a.active::after,
+#navbar li a:hover::after { /* underline affect pseudo-class */
+    content: "";
+    width: 30%;
+    height: 2px;
+    background: #088178;
+    position: absolute; /* inside a child element, relative position should be given to parent element*/
+    bottom: -4px;
+    left: 20px;
+}
+
+#hero{
+    background-image: url('../images/hero4.png');
+    height: 90vh; /*Relative to 90% of the height of the viewport*/
+    width: 100%;
+    background-size: cover; /*Resize the background image to cover the entire container, 
+    even if it has to stretch the image or cut a little bit off one of the edges*/
+    background-position: top 25% right 0; /* container right and img right fits */
+    padding: 0 80px; /* bottom-top 0, left-right 80px */
+    display: flex;
+    flex-direction: column; /* 主軸為 column */
+    align-items: flex-start; /* 次軸: start: left to right */
+    justify-content: center; /* 以主軸重直置中 */   
+}
+
+#hero h4{
+    padding-bottom: 15px;
+}
+
+#hero h1{
+    color:rgba(0, 0, 0, 0.3)
+}
+
+#hero button{
+    background-image: url('../images/button.png');
+    background-color: transparent; /* same color as background image */
+    color: #088178;
+    border: 0;
+    padding: 14px 80px 14px 65px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+#feature{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+#feature .fe-box{
+    width: 180px;
+    text-align: center; /* column 垂直置中*/
+    padding: 25px 15px;
+    box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.03);
+    border: 1px solid #cce7d0;
+    border-radius: 4px;
+    margin: 15px 0;
+}
+
+#feature .fe-box img{ /* make it responsive? */
+    width: 100%; 
+    margin-bottom: 10px;
+}
+
+#feature .fe-box:hover{
+    box-shadow: 10px 10px 54px rgba(70,62,221,0.2);
+}
+
+#feature .fe-box h6{
+    display: inline-block;
+    padding: 9px 8px 6px 8px ;
+    line-height: 1; /* 兩行文字中間的高度 */ 
+    border-radius: 4px;
+    color: #088178;
+    background-color: #fddde4;
+}
+
+#featured-product {
+    text-align: center;
+}
+
+.product-container{
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+.product-container .product{
+    width: 23%;
+    min-width: 250px;
+    padding: 10px 12px;
+    border: 1px solid #cce7d0;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.1);
+    margin: 15px 0;
+    transition: 0.2s ease ;
+    position: relative;
+}
+
+
+.product-container .product img {
+    width: 100%; /* 相較於 parent div */
+    border-radius: 20px;
+}
+
+.product-container .product:hover{
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+.product-container .product .description{
+    text-align: start;
+    padding: 10px 0;
+}
+
+.product-container .product .description span{
+    color: #606063;
+    font-size: 12px;
+} 
+
+.product-container .product .description h5{
+    padding-top: 7px;
+    color: #1a1a1a;
+    font-size: 14px;
+} 
+
+.product-container .product .description i{
+    color: rgb(243, 181, 25);
+    font-size: 12px;
+} 
+
+.product-container .product .description h4{
+    padding-top: 7px;
+    color: #088178;
+    font-size: 15px;
+    font-weight: 700;
+} 
+
+.product-container .product .cart{
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50px; 
+    background-color: #e8f6ea;
+    /* font-weight: 500; this does not fit fontawesome*/
+    color: #088178;
+    border: 1px solid #cce7d0;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+} 
+
+#banner{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /*主軸置中 */ 
+    justify-content: center;
+    text-align: center;
+    background-image: url("../images/banner/b2.jpg");
+    width: 100%;
+    height: 40vh;
+    background-size: cover;
+    background-position: center;
+}
+#sm-banner{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#sm-banner .banner-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* 將banner 內的 text 置左 */
+    background-image: url("../images/banner/b17.jpg");
+    min-width: 530px;
+    height: 50vh;
+    background-size: cover;
+    background-position: center;
+    padding-left: 30px;
+}
+
+#sm-banner .banner-box:hover button{
+    background: #088178;
+    border: 1px solid #088178;
+}
+
+#newsletter{
+    display: flex;
+    flex-direction: row; /* default */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    background-image: url("../images/banner/b14.png");
+    background-repeat: no-repeat;
+    background-position: 20% 30%;
+    background-color: #041e42;
+}
+
+#newsletter h4{
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+}
+
+#newsletter p{
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+#newsletter .form{
+    display: flex;
+    width: 40%;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+}
+
+#newsletter input {
+    height: 3.125rem;
+    padding: 0 1.25em;
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    outline: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#newsletter button{
+    background-color: #088178;
+    color: white; /* text color */
+    white-space: nowrap;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+footer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* row-left */
+    /* align-items: flex-start; */
+    margin-bottom: 20px;
+}
+
+footer h4{
+    font-size: 14px;
+    padding-bottom: 20px;
+}
+
+footer p{
+    font-size: 13px;
+    margin: 0 0 8px 0; /* top right bottom left */
+}
+
+footer a{
+    font-size: 13px;
+    text-decoration: none; /* 將連結底線和顏色關掉 */
+    color: #222;
+    margin-bottom: 10px; 
+}
+
+
+/* shop page */
+
+.page-header{
+    width: 100%;
+    height: 40vh;
+    background-size: cover; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+}
+
+.page-header h2,
+.page-header p{
+    color: white;
+}
+
+#shop-header {
+    background-image: url("../images/banner/b1.jpg");
+}
+
+#shop-section{
+    display: flex;
+}
+
+#shop-section h2{
+    margin-top: 20px;
+}
+
+#shop-section .list-group{
+    margin-top: 20px;
+    width: 70%;
+}
+
+#category{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#shop-product{
+    width: 80%;
+    padding: 0 10px;
+    text-align: center;
+}
+
+/* #shop-section div{
+    border: 1px solid;
+} */
+
+#pagination{
+    text-align: center;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: center; */
+}
+
+#pagination a{
+    text-decoration: none;
+    background-color: #088178;
+    padding: 15px 20px; /* 範圍變大，字大小不變？*/
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* product-detail */
+
+#product-detail {
+    display: flex; /* two div in one row */
+    margin-top: 20px;
+}
+
+/* 整個 div 右邊留白，且只佔 40% 畫面 */
+#product-detail .single-product-img{
+    width: 40%;
+    margin-right: 50px;
+} 
+
+/* 小畫面橫向顯示 */
+#product-detail .small-img-group{
+    display: flex;
+    justify-content: space-between;
+}
+
+.small-img-col {
+    flex-basis: 24%;
+    cursor: pointer;
+}
+
+#product-detail .single-product-detail{
+    width: 50%;
+    padding-top: 30px;
+}
+
+#product-detail .single-product-detail h4{
+    padding: 40px 0 20px 0;
+}
+
+#product-detail .single-product-detail h2{
+    font-size: 26px;
+}
+
+#product-detail .single-product-detail select{
+    display: block;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+
+#product-detail .single-product-detail button{
+    background-color: #088178;
+    color: #fff;
+}
+
+/* contact page */
+
+#contact-header {
+    background-image: url("../images/banner/b1.jpg");
+}
+
+.form-detail{
+    margin: 30px;
+    padding: 80px;
+    border: 1px solid #e1e1e1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-detail form{
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 垂直置中 */
+    /* border: 1px solid; */
+}
+
+.form-detail form input,
+.form-detail form textarea{
+    width: 100%;
+    padding: 12px 15px;
+    outline: none;
+    margin-bottom: 20px;
+    border: 1px solid #e1e1e1;
+}
+
+.form-detail form button{
+    background-color: #088178;
+    color: #fff;
+}
+
+/* cart page */
+
+#cart table{
+    width: 100%;
+    border-collapse: collapse; /* 表格欄位邊框合併 */
+    table-layout: fixed;
+    white-space: nowrap;
+}
+
+#cart table img{
+    width: 70px;
+}
+
+#cart table td:nth-child(1){
+    width: 100px;
+    text-align: center;
+    /* border: 1px solid; */
+}
+
+#cart table td:nth-child(2){
+    width: 150px;
+    text-align: center;
+    /* border: 1px solid; */
+}
+
+#cart table td:nth-child(3){
+    width: 250px;
+    text-align: center;
+    /* border: 1px solid; */
+    white-space: normal; /* 設定是否換行(空白處理)*/
+}
+
+#cart table td:nth-child(4), 
+#cart table td:nth-child(5),
+#cart table td:nth-child(6){
+    width: 150px;
+    text-align: center;
+}
+
+#cart table td:nth-child(5) input{
+    width: 70px;
+    padding: 10px 5px 10px 15px;
+}
+
+#cart table thead{
+    border: 1px solid #e2e9e1;
+    border-left: none;
+    border-right: none;
+}
+
+#cart table thead td{
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    padding: 18px 0;
+    /* border: 1px solid; */
+}
+
+#cart table tbody tr td{
+    padding-top: 15px;
+    font-size: 13px;
+}
+
+#cart-add {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#coupon{
+    width: 50%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#coupon h3,
+#subtotal h3{
+    padding-bottom: 15px;
+}
+
+#coupon input{
+    padding: 10px 20px;
+    outline: none;
+    width: 60%;
+    margin-right: 10px;
+    border: 1px solid #e2e9e1;
+}
+
+#coupon button,
+#subtotal button{
+    background-color: #088178;
+    color: #fff;
+    padding: 12px 20px;
+}
+
+#coupon-input-area {
+    width: 100%;
+}
+
+#subtotal{
+    width: 40%;
+    margin-bottom: 20px;
+    border: 1px solid #e2e9e1;
+    padding: 30px;
+}
+
+#subtotal table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#subtotal table td{
+    width: 50%;
+    border: 1px solid #e2e9e1;
+    padding: 10px;
+    font-size: 13px;
+}
+
+/* LOGIN PAGE */
+
+#login h2,
+#register h2 {
+    margin-bottom: 30px;
+}
+
+#login h4,
+#register h4{
+    margin-top: 40px;
+}
+
+#login input,
+#register input {
+    width: 80%;
+}
+
+
+#login a,
+#register a {
+    /* text-decoration: none; */
+    font-weight: 600;
+    color: #088178;
+}

@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="register" class="form-detail">
+        <h2>註冊</h2>
+        <form action="" method="POST">
+            <span>帳號</span>
+            <input type="text" required placeholder="你的帳號">
+            <span>密碼</span>
+            <input type="password" required placeholder="你的密碼">
+            <span>確認密碼</span>
+            <input type="password" required placeholder="再輸入一次密碼">
+            <button class="normal">註冊</button>
+        </form>
+        <h4>有帳戶了？<a href="">立即登入</a></h4>
+    </section>
+{% endblock content %}

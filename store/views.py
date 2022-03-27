@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # @login_required(login_url= 'login')
-def store(request):
+def home(request):
 
     data = cartData(request)
     cartItems = data['cartItems']
@@ -18,7 +18,31 @@ def store(request):
         'products': products,
         'cartItems': cartItems,
     }
-    return render(request, 'store/store.html', context)
+    return render(request, 'home.html', context)
+
+def shop(request):
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Product.objects.all()
+    context = {
+        'products': products,
+        'cartItems': cartItems,
+    }
+    return render(request, 'shop.html', context)
+
+def contact(request):
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Product.objects.all()
+    context = {
+        'products': products,
+        'cartItems': cartItems,
+    }
+    return render(request, 'contact.html', context)
 
 def product_detail(request, pk):
 
@@ -31,16 +55,16 @@ def product_detail(request, pk):
 
     data['product'] = product
 
-    return render(request, 'store/product_detail.html', context= data)
+    return render(request, 'product_detail.html', context= data)
 
-def showCategory(request, pk):
+# def showCategory(request, pk):
 
-    data = cartData(request)
-    # category = Category.objects.get(id = pk)
-    products = Product.objects.filter(category__exact = pk)
+#     data = cartData(request)
+#     # category = Category.objects.get(id = pk)
+#     products = Product.objects.filter(category__exact = pk)
 
-    data['products'] = products
-    return render(request, 'store/category.html', context= data)
+#     data['products'] = products
+#     return render(request, 'store/category.html', context= data)
 
 def cart(request):
     # if the user is authenticed 
@@ -60,7 +84,7 @@ def cart(request):
         'order':  order,
         'cartItems': cartItems
     }
-    return render(request, 'store/cart.html', context)
+    return render(request, 'cart.html', context)
 
 def checkout(request):
 
@@ -78,7 +102,7 @@ def checkout(request):
         'cartItems': cartItems
     }
     
-    return render(request, 'store/checkout.html', context)
+    return render(request, 'checkout.html', context)
 
 def updateItem(request):
     data = json.loads(request.body) # 將 POST request 的 body 以 json 讀取

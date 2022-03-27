@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+    <section id="contact-header" class="page-header">
+        <h2>#Let's Talk</h2>
+        <p>LEAVE A MESSAGE, We love to hear from you!</p>
+    </section>
+
+    <section id="cart" class= "section-p1">
+        <table width= "100%">
+            <thead> 
+                <tr>
+                    <td>Remove</td> <!-- table heading, row, data -->
+                    <td>照片</td>
+                    <td>產品名稱</td>
+                    <td>價格</td>
+                    <td>數量</td>
+                    <td>Subtotal</td> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href=""><i class= "far fa-times-circle"></i></a></td>
+                    <td><img src="{% static 'images/products/f1.jpg' %}" alt=""></td>
+                    <td>African T-shirts Some Text Some Text Some Text</td>
+                    <td>$118.19</td>
+                    <td><input type="number" min="1" max= "99" value="1"></td>
+                    <td>$118.19</td>
+                </tr>
+                <tr>
+                    <td><a href=""><i class= "far fa-times-circle"></i></a></td>
+                    <td><img src="{% static 'images/products/f1.jpg' %}" alt=""></td>
+                    <td>African T-shirts Some Text Some Text Some Text</td>
+                    <td>$118.19</td>
+                    <td><input type="number" min="1" max= "99" value="1"></td>
+                    <td>$118.19</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="cart-add" class= "section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div id="coupon-input-area">
+                <input type="text" placeholder="Enter Your Coupon">
+                <button class="normal">Apply</button>
+            </div>
+        </div>
+
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td>$ 355</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>$ 355</strong></td>
+                </tr>
+            </table>
+            <button class= "normal">Proceed To Checkout</button>
+        </div>
+    </section>
+{% endblock content %}
