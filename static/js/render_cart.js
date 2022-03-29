@@ -6,8 +6,8 @@
 
 cartInputBtns = document.getElementsByClassName('update-cart')
 
-for (let i= 1; i < cartInputBtns.length; i++){
-    let cartInputBtn = cartInputBtns[i];
+for (let i= 0; i < cartInputBtns.length; i++){
+    let cartInputBtn = cartInputBtns[i]
     cartInputBtn.addEventListener('change', async function(e){
         e.preventDefault()
         orderId = await getCurrentOrderId()
