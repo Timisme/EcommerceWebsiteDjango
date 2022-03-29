@@ -4,7 +4,7 @@
 
     <section id="product-detail" class="section-p1">
         <div class="single-product-img">
-            <img src="{% static 'images/products/f1.jpg' %}" width= "100%" class= "main-img" alt="">
+            <img src="{{ product.imageURL }}" width= "100%" class= "main-img" alt="">
             <div class="small-img-group">
                 <div class="small-img-col">
                     <img src="{% static 'images/products/f1.jpg' %}" width= "100%" class= "small-img" alt="">
@@ -22,18 +22,18 @@
         </div>
 
         <div class="single-product-detail">
-            <h6>Home/ T-Shirt</h6>
-            <h4>African T-Shirt</h4>
-            <h2>$97</h2>
+            <h6>Home/ {{ product.category }}</h6>
+            <h4>{{ product.name }}</h4>
+            <h2>${{ product.price }}</h2>
             <select name="" id="">
                 <option value="">S</option>
                 <option value="">M</option>
                 <option value="">L</option>
             </select>
-            <input type="number" value="1">
-            <button class="normal">Add To Cart</button>
+            <input id= 'item-quantity-input' type="number" value="1">
+            <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity="1" class="add-to-cart update-quantity button">Add To Cart</a>
             <h4>Product Details</h4>
-            <span>qseoqeuqkbsbqjdbqud</span>
+            <span>{{ product.description }}</span>
         </div>
     </section>
 

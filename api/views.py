@@ -21,7 +21,7 @@ def orderItemCreate(request):
         serializer.save()
     return Response(serializer.data)
 
-@api_view(['POST'])
+@api_view(['PATCH'])
 def orderItemUpdate(request, pk):
     orderItem = OrderItem.objects.get(id= pk)
     serializer = OrderItemSerializer(

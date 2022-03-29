@@ -1,5 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
+
 {% block content %}
 
     <section id="shop-header" class="page-header" >
@@ -11,15 +12,17 @@
         <div id="category">
             <h2>商品類別</h2>
             <div class="list-group">
-                <button type="button" class="list-group-item list-group-item-action">全部</button>
-                <button type="button" class="list-group-item list-group-item-action active" aria-current="true">服裝</button>
-                <button type="button" class="list-group-item list-group-item-action">電子產品</button>
-                <button type="button" class="list-group-item list-group-item-action">一般</button>
+                <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'shop' %}" class="">全部</a></button>
+                {% for category in category_set %}
+                <!-- <button type="button" class="list-group-item list-group-item-action active" aria-current="true">服裝</button> -->
+                <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'category' pk=category.id %}" class="">{{ category.name }}</a></button>
+                {% endfor %}
             </div>
         </div>
         <div id= "shop-product" class="product-container">
             {% for product in products %}
             <div class="product">
+                <a href="{% url 'product_detail' pk=product.id %}" class="clickable"></a>
                 <img src="{{ product.imageURL }}" alt="">
                 <div class="description">
                     <span>{{ product.category }}</span>
@@ -33,8 +36,9 @@
                     </div>
                     <h4>${{ product.price }}</h4>
                 </div>
-                <a href="#" class=""><i class="fa-solid fa-cart-shopping cart"></i></a>
+                <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity="1" class="add-to-cart"><i class="fa-solid fa-cart-shopping cart"></i></a>
             </div>
+            {% endfor %}
         </div>
     </section>
 
@@ -44,4 +48,4 @@
         <a href="" class=""><i class="fa-solid fa-arrow-right-long"></i></a>
     </section>
 
-{% endblock content %}
+{% endblock %}

@@ -19,14 +19,16 @@
                 </tr>
             </thead>
             <tbody>
+                {% for item in items %}
                 <tr>
                     <td><a href=""><i class= "far fa-times-circle"></i></a></td>
-                    <td><img src="{% static 'images/products/f1.jpg' %}" alt=""></td>
-                    <td>African T-shirts Some Text Some Text Some Text</td>
-                    <td>$118.19</td>
-                    <td><input type="number" min="1" max= "99" value="1"></td>
-                    <td>$118.19</td>
+                    <td><img src="{{ item.product.imageURL }}" alt=""></td>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td><input type="number" min="1" max= "99" value="{{item.quantity}}" class="update-cart" data-item= {{item.id}} data-product= "{{item.product.id}}"></td>
+                    <td data-product="{{item.product.id}}" class="subtotal">${{ item.get_total }}</td>
                 </tr>
+                {% endfor %}
                 <tr>
                     <td><a href=""><i class= "far fa-times-circle"></i></a></td>
                     <td><img src="{% static 'images/products/f1.jpg' %}" alt=""></td>
@@ -44,7 +46,7 @@
             <h3>Apply Coupon</h3>
             <div id="coupon-input-area">
                 <input type="text" placeholder="Enter Your Coupon">
-                <button class="normal">Apply</button>
+                <a href= "" class="button">Apply</a>
             </div>
         </div>
 
@@ -53,7 +55,7 @@
             <table>
                 <tr>
                     <td>Cart Subtotal</td>
-                    <td>$ 355</td>
+                    <td id="cart-total" >$ {{order.get_cart_total}}</td>
                 </tr>
                 <tr>
                     <td>Shipping</td>
@@ -61,10 +63,11 @@
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>$ 355</strong></td>
+                    <td><strong>$ {{order.get_cart_total}}</strong></td>
                 </tr>
             </table>
-            <button class= "normal">Proceed To Checkout</button>
+            <a href="{% url 'checkout' %}" class="button">Proceed To Checkout</a>
+            <!-- <button class= "normal"></button> -->
         </div>
     </section>
 {% endblock content %}

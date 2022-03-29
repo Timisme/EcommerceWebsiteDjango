@@ -17,6 +17,26 @@
     z-index: 1;
 }
 
+
+a.button{
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 20px;
+    color : #fff;
+    background-color: #088178;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.2s; 
+    text-decoration: none; 
+    z-index: 1; 
+ }
+
+ a.button:hover{
+     color: white;
+ }
+
 button.normal{
     font-size: 14px;
     font-weight: 600;
@@ -237,6 +257,7 @@ body{
     position: absolute;
     bottom: 20px;
     right: 10px;
+    z-index: 999;
 } 
 
 #banner{
@@ -400,6 +421,11 @@ footer a{
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+}
+
+#category a{
+    text-decoration: none;
+    color: #222;
 }
 
 #shop-product{
@@ -605,12 +631,12 @@ footer a{
     border: 1px solid #e2e9e1;
 }
 
-#coupon button,
-#subtotal button{
+/* #coupon button,
+#subtotal a{
     background-color: #088178;
     color: #fff;
     padding: 12px 20px;
-}
+} */
 
 #coupon-input-area {
     width: 100%;

@@ -11,45 +11,34 @@ from django.contrib.auth.decorators import login_required
 def home(request):
 
     data = cartData(request)
-    cartItems = data['cartItems']
 
     products = Product.objects.all()
-    context = {
-        'products': products,
-        'cartItems': cartItems,
-    }
-    return render(request, 'home.html', context)
+    data['products'] = products 
+    
+    return render(request, 'home.html', context= data)
 
 def shop(request):
 
     data = cartData(request)
-    cartItems = data['cartItems']
 
     products = Product.objects.all()
-    context = {
-        'products': products,
-        'cartItems': cartItems,
-    }
-    return render(request, 'shop.html', context)
+    data['products'] = products 
+    return render(request, 'shop.html', context= data)
 
 def contact(request):
 
     data = cartData(request)
-    cartItems = data['cartItems']
 
     products = Product.objects.all()
-    context = {
-        'products': products,
-        'cartItems': cartItems,
-    }
-    return render(request, 'contact.html', context)
+    data['products'] = products 
+    return render(request, 'contact.html', context= data)
 
 def product_detail(request, pk):
 
     data = cartData(request)
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
+    # cartItems = data['cartItems']
+    # order = data['order']
+    # items = data['items']
 
     product = Product.objects.get(id= pk)
 
@@ -57,34 +46,24 @@ def product_detail(request, pk):
 
     return render(request, 'product_detail.html', context= data)
 
-# def showCategory(request, pk):
+def showCategory(request, pk):
 
-#     data = cartData(request)
-#     # category = Category.objects.get(id = pk)
-#     products = Product.objects.filter(category__exact = pk)
+    data = cartData(request)
 
-#     data['products'] = products
-#     return render(request, 'store/category.html', context= data)
+    products = Product.objects.filter(category__exact = pk)
+    data['products'] = products
+
+    return render(request, 'shop.html', context= data)
 
 def cart(request):
     # if the user is authenticed 
 
     data = cartData(request)
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
-        
 
-    products = Product.objects.all()
+    # products = Product.objects.all()
     # 將 cookie 中的 cart tag 對應的 value 存在 context, 讓 html render 顯示總價與數量
     # (web server 存的數值於後端加工後再 render 到前端)
-    context = {
-        'products': products,
-        'items': items,
-        'order':  order,
-        'cartItems': cartItems
-    }
-    return render(request, 'cart.html', context)
+    return render(request, 'cart.html', context= data)
 
 def checkout(request):
 
@@ -106,8 +85,10 @@ def checkout(request):
 
 def updateItem(request):
     data = json.loads(request.body) # 將 POST request 的 body 以 json 讀取
+    
     productId = data['productId']
     action = data['action']
+    quantity = int(data['quantity'])
 
     customer = request.user.customer
     product = Product.objects.get(id= productId)
@@ -121,16 +102,16 @@ def updateItem(request):
     orderItem, created = OrderItem.objects.get_or_create(order= order, product= product)
 
     if action == 'add':
-        orderItem.quantity = orderItem.quantity + 1
+        orderItem.quantity = orderItem.quantity + quantity
     elif action == 'remove':
-        orderItem.quantity = orderItem.quantity - 1
+        orderItem.quantity = orderItem.quantity - quantity
 
     orderItem.save()
 
     if orderItem.quantity <= 0:
         orderItem.delete()
 
-    return JsonResponse('Item was added', safe= False)
+    return JsonResponse('Item quantity was updated!', safe= False)
 
     '''safe: If it’s set to False, any object can be passed for serialization (otherwise only dict instances are allowed)'''
 

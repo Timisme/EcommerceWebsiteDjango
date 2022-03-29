@@ -1,4 +1,4 @@
-let updateBtns = document.getElementsByClassName('update-cart')
+let updateBtns = document.getElementsByClassName('update-cart-old')
 
 for (let i = 0; i< updateBtns.length; i++) {
     updateBtns[i].addEventListener('click', async function(e) {
@@ -10,7 +10,7 @@ for (let i = 0; i< updateBtns.length; i++) {
 
         if (updateBtns[i].classList.contains('update-item')){
 
-            await renderItem(productId); // 更新 cart.html 頁面資運 && 知道是點哪個 product 
+            await renderItem(productId); // 更新 cart.html 頁面資訊 && 知道是點哪個 product 
 
         }
     })
@@ -43,7 +43,7 @@ function addCookieItem(productId, action){
     // location.reload();
 }
 
-async function updateUserOrder(productId, action) {
+async function updateUserOrder(productId, action, quantity) {
     let url = '/update_item/' // urls 對應的 view 會 handle request 
 
     await fetch(url, {
@@ -55,14 +55,15 @@ async function updateUserOrder(productId, action) {
         body: JSON.stringify({
             'productId': productId,
             'action': action,
-        })
+            'quantity': quantity,
+        }),
     })
     .then((response) => {
         return response.json()
     })
     .then((data) => {
-        // console.log('data:', data)
-        // console.log('updateUserOrder Success')
+        console.log('data:', data)
+        console.log('updateUserOrder Success')
         // location.reload() // 刷新頁面 沒效率
     })
 }
