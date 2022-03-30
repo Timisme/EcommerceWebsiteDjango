@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from matplotlib.style import context
+from matplotlib.style import context, use
+from store.models import Customer
 from .forms import CreateUserForm
 
 def registerPage(request):
@@ -19,6 +21,13 @@ def registerPage(request):
             form = CreateUserForm(request.POST)
             if form.is_valid():
                 form.save()
+                # 該 user 建立 customer 
+                user = User.objects.get(username = form.cleaned_data['username'])
+                customer, created = Customer.objects.get_or_create(
+                    user = user,
+                    name = form.cleaned_data['username'],
+                    email = form.cleaned_data['email']
+                )
                 return redirect('login')
 
         context = {
@@ -29,13 +38,13 @@ def registerPage(request):
 def loginPage(request):
 
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('account')
 
     else:
         if request.method == 'POST':
             username = request.POST.get('username')
             password = request.POST.get('password')
-            print(username, password)
+            # print(username, password)
             user = authenticate(request, username= username, password= password)
 
             if user is not None:
@@ -45,6 +54,7 @@ def loginPage(request):
             
             else:
                 messages.info(request, 'username or password incorrect')
+                return HttpResponse('username or password incorrect')
         
         else:
             context = {

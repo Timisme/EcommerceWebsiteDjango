@@ -8,6 +8,9 @@ A ecommerce website featured with carts and payment functionality from Django
 4. 商品分類
 5. 優惠券系統
 6. Session 暫存購物車
+7. Celery 
+8. Redis as Cache
+9. Nginx? 
 
 ## Paypal 金流
 
@@ -41,4 +44,40 @@ A ecommerce website featured with carts and payment functionality from Django
 * JS 取得 DOM 物件後獲取該物件的 product-id 及 action，進行操作
 
 * 只有 checkout 完成 order 才會是 complete
+
+
+# Cache 機制
+
+## 為甚麼要 cache？
+
+把不常改變的資料放到 cache，減少直接讀取後端資料庫，提升網站效能。
+
+## redis 是甚麼？
+
+In-memory 的 key-value 資料庫，優點在於效能高。但有 data loss 的問題，就適合 cache data。
+
+## cache 常遇到的問題
+
+* 只用 local cache, 多台 server cache 資料不同步，cache miss 較高，
+* cache flow 應該是 
+1. redis 拿資料 
+2. 沒有的話其中一個 request 去 db 拿資料，存在 redis
+3. 其他 request 就從 redis 拿資料
+ 
+
+## @cache_page 做了甚麼？
+
+1. cache the output of views 
+2. cache the view's response 
+3. requests from different url will be cached separately 
+4. cache arg => what cache backend to use (from setting), by default using 'default' cache is used
+
+## How to access caches? 
+
+## redis conf 配置概念
+1. daemonize: 指定 redis 是否要用守護線程方式啟動(啟動後 redis 會把 pid 寫到一個 pidfile 中)
+2. 
+
+
+
 

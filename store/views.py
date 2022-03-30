@@ -16,7 +16,7 @@ from .utils import cookieCart, cartData, guessOrder
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 # @login_required(login_url= 'login')
-@cache_page(CACHE_TTL)
+# @cache_page(timemout= CACHE_TTL, cache= None, key_prefix= None)
 def home(request):
 
     data = cartData(request)
@@ -100,6 +100,9 @@ def checkout(request):
     }
     
     return render(request, 'checkout.html', context)
+
+def myaccount(request):
+    return render(request, 'myaccount.html')
 
 def updateItem(request):
 
