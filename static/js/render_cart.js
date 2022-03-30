@@ -13,7 +13,7 @@ for (let i= 0; i < cartInputBtns.length; i++){
         orderId = await getCurrentOrderId()
         productId = cartInputBtn.dataset.product 
         itemId = cartInputBtn.dataset.item
-        console.log('item id:', itemId)
+        console.log('orderId:', orderId)
         quantity = cartInputBtn.value
         data = await updateOrderItem(productId, itemId, orderId, quantity)
         console.log('data from updateorderitem:', data)
@@ -24,7 +24,7 @@ for (let i= 0; i < cartInputBtns.length; i++){
 
 // restapi 修改 orderitem 資料，並回傳更新後資料。
 async function updateOrderItem(productId, itemId, orderId, quantity){
-    url = `http://127.0.0.1:8000/api/orderItem-update/${itemId}`
+    url = `http://127.0.0.1:8000/api/orderItem/${itemId}`
 
     res = await fetch(url, {
         method: "PATCH",
@@ -44,6 +44,7 @@ async function updateOrderItem(productId, itemId, orderId, quantity){
         })
     .then((data) => {
         console.log("item has been updated!")
+        console.log("data: ", data)
         return data
     })
 
@@ -58,7 +59,7 @@ async function renderOrderItem(productId, subtotal){
 
 // 給定 order id 將 html 動態修改
 async function renderOrder(currentOrderId){
-    let url = `http://127.0.0.1:8000/api/order-detail/${currentOrderId}`
+    let url = `http://127.0.0.1:8000/api/order/${currentOrderId}`
     let cartTotal = document.getElementById('cart-total')
 
     await fetch(url, {

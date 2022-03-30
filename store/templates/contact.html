@@ -7,13 +7,15 @@
     </section>
 
     <section id="contact" class="form-detail">
-        <form action="">
+        <form action="" method="POST">
+            {% csrf_token %}
             <span>LEAVE A MESSAGE</span>
-            <h2>We love to hear from you</h2>
-            <input type="text" placeholder="Your Name">
+            <h4>WE WOULD LOVE TO HEAR FROM YOU!</h4>
+            <!-- <input type="text" placeholder="Your Name">
             <input type="text" placeholder="E-mail">
             <input type="text" placeholder="Subject">
-            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message"></textarea> -->
+            {{ form }}
             <button class="normal">Submit</button>
         </form>
     </section>

@@ -1,13 +1,22 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
+from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 import json
 import datetime
 from .models import *
+from .forms import ContactForm
 from .utils import cookieCart, cartData, guessOrder
-from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
 # @login_required(login_url= 'login')
+@cache_page(CACHE_TTL)
 def home(request):
 
     data = cartData(request)
@@ -19,19 +28,28 @@ def home(request):
 
 def shop(request):
 
-    data = cartData(request)
+    # Set up pagination 
+    p = Paginator(Product.objects.all(), 6) # 6 products per page to show 
+    page = request.GET.get('page') # keep track of the page
+    products = p.get_page(page) # get products for the specific page
 
-    products = Product.objects.all()
+    data = cartData(request)
     data['products'] = products 
+
     return render(request, 'shop.html', context= data)
 
 def contact(request):
 
-    data = cartData(request)
-
-    products = Product.objects.all()
-    data['products'] = products 
-    return render(request, 'contact.html', context= data)
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            return HttpResponse('FORM POST ERROR')
+    else:
+        form = ContactForm
+        
+    return render(request, 'contact.html', context= {'form': form})
 
 def product_detail(request, pk):
 
@@ -84,34 +102,41 @@ def checkout(request):
     return render(request, 'checkout.html', context)
 
 def updateItem(request):
-    data = json.loads(request.body) # 將 POST request 的 body 以 json 讀取
+
+    if request.user.is_authenticated:
+        data = json.loads(request.body) # 將 POST request 的 body 以 json 讀取
+        
+        productId = data['productId']
+        action = data['action']
+        quantity = int(data['quantity'])
+
+        customer = request.user.customer
+        product = Product.objects.get(id= productId)
+
+        order, created = Order.objects.get_or_create(customer= customer, complete= False)
+        # If multiple objects are found, get_or_create() raises MultipleObjectsReturned. 
+        # If an object is not found, get_or_create() will instantiate and save a new object, 
+        # returning a tuple of the new object and True
+        # save() is not needed 
+        
+        orderItem, created = OrderItem.objects.get_or_create(order= order, product= product)
+
+        if action == 'add':
+            orderItem.quantity = orderItem.quantity + quantity
+        elif action == 'remove':
+            orderItem.quantity = orderItem.quantity - quantity
+
+        orderItem.save()
+
+        if orderItem.quantity <= 0:
+            orderItem.delete()
+
+        return JsonResponse('Item quantity was updated!', safe= False)
+    else:
+        return JsonResponse('User not logged in', safe= False)
+
+
     
-    productId = data['productId']
-    action = data['action']
-    quantity = int(data['quantity'])
-
-    customer = request.user.customer
-    product = Product.objects.get(id= productId)
-
-    order, created = Order.objects.get_or_create(customer= customer, complete= False)
-    # If multiple objects are found, get_or_create() raises MultipleObjectsReturned. 
-    # If an object is not found, get_or_create() will instantiate and save a new object, 
-    # returning a tuple of the new object and True
-    # save() is not needed 
-    
-    orderItem, created = OrderItem.objects.get_or_create(order= order, product= product)
-
-    if action == 'add':
-        orderItem.quantity = orderItem.quantity + quantity
-    elif action == 'remove':
-        orderItem.quantity = orderItem.quantity - quantity
-
-    orderItem.save()
-
-    if orderItem.quantity <= 0:
-        orderItem.delete()
-
-    return JsonResponse('Item quantity was updated!', safe= False)
 
     '''safe: If it’s set to False, any object can be passed for serialization (otherwise only dict instances are allowed)'''
 

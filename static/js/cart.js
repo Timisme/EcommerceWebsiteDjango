@@ -72,7 +72,7 @@ async function updateUserOrder(productId, action, quantity) {
 // getCurrentOrderId()
 
 async function getCurrentOrderId(){
-    let url = 'http://127.0.0.1:8000/api/order-current/'
+    let url = 'http://127.0.0.1:8000/api/order/'
 
     const currentOrderId = await fetch(url, {
         method: 'GET',
@@ -86,7 +86,7 @@ async function getCurrentOrderId(){
         })
         .then((data) => {
             console.log('getCurrentOrder:', data)
-            return data['id']
+            return Array.from(data).filter(order => order.complete == false)[0]['id']
         })
 
     return currentOrderId

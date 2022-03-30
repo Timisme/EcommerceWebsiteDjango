@@ -43,9 +43,17 @@
     </section>
 
     <section id="pagination" class= "section-p1">
-        <a href="" class="">1</a>
-        <a href="" class="">2</a>
-        <a href="" class=""><i class="fa-solid fa-arrow-right-long"></i></a>
+
+        {% if products.has_previous %}
+        <a href="?page={{ products.previous_page_number }}" class=""><i class="fa-solid fa-arrow-left-long"></i></a>
+        {% endif %}
+
+        <!-- <a href="" class="">1</a> -->
+        <a href="?page={{ products.number }}" class="">Page {{ products.number }} of {{ products.paginator.num_pages }}</a>
+
+        {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}" class=""><i class="fa-solid fa-arrow-right-long"></i></a>
+        {% endif %}
     </section>
 
 {% endblock %}
