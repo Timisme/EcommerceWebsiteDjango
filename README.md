@@ -79,5 +79,15 @@ In-memory 的 key-value 資料庫，優點在於效能高。但有 data loss 的
 2. 
 
 
+# Session framework 
+
+# drf-yasg Swagger
+
+1. 測試 rest api 
+2. swagger for testing, redoc for referencing 
+3. 
+
+
+
 
 

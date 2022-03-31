@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'store',
     'api',
     'rest_framework',
+    'drf_yasg',
     'login',
 ]
 

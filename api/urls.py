@@ -6,6 +6,6 @@ from . import views
 urlpatterns = [
     path('order/', views.OrderList.as_view(), name= 'order-list'),
     path('order/<str:pk>', views.OrderDetail.as_view(), name= 'order-detail'),
-    path('orderItem/', views.OrderItemList.as_view(), name= 'orderItem-list'),
+    path('orderItemList/<str:order_id>', views.OrderItemList.as_view(), name= 'orderItem-list'),
     path('orderItem/<str:pk>', views.OrderItemDetail.as_view(), name= 'orderItem-detail'),
 ]
