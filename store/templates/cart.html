@@ -37,8 +37,8 @@
         <div id="coupon">
             <h3>Apply Coupon</h3>
             <div id="coupon-input-area">
-                <input type="text" placeholder="Enter Your Coupon">
-                <a href= "" class="button">Apply</a>
+                <input type="text" placeholder="Enter Your Coupon" name="code" class="coupon-input">
+                <a href= "#" class="button coupon-btn">Apply</a>
             </div>
         </div>
 
@@ -51,7 +51,7 @@
                 </tr>
                 <tr>
                     <td>Shipping Fee</td>
-                    <td>$ {{order.shipping_fee}}</td>
+                    <td id="cart-shipping">$ {{order.shipping_fee}}</td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>

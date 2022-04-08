@@ -125,4 +125,21 @@ class Newsletter(models.Model):
 
 	def __str__(self):
 		return self.email
+
+class Coupon(models.Model):
+
+	DISCOUNT_TYPE_CHOICES = (
+        ('shipping', 'shipping'),
+        ('product', 'product'),
+		('order', 'order'),
+    )
+	
+	code = models.CharField(max_length=100, blank= False, null= False)
+	description = models.CharField(max_length=252)
+	discount = models.FloatField(blank= False, null= False)
+	discount_type = models.CharField(max_length=50, blank= False, null= False, choices= DISCOUNT_TYPE_CHOICES)
+	is_enabled = models.BooleanField(blank= False, null= False)
+
+	def __str__(self):
+		return self.code
 	

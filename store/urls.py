@@ -12,8 +12,8 @@ urlpatterns = [
     path('account/', views.myaccount, name= 'account'),
     path('product_detail/<str:pk>', views.product_detail, name= 'product_detail'),
     path('category/<str:pk>', views.showCategory, name = 'category'),
+    path('coupon/', views.validateCoupon, name= 'coupon'),
     
-
     path('update_item/', views.updateItem, name= 'update_item'),
     path('process_order/', views.processOrder, name= 'process_order'),
 ]

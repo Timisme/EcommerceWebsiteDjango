@@ -106,6 +106,17 @@ def checkout(request):
 def myaccount(request):
     return render(request, 'myaccount.html')
 
+def validateCoupon(request):
+    input_code = json.loads(request.body)['code']
+    # .values() -> obj to json as queryset
+    coupon = Coupon.objects.filter(is_enabled = True, code= input_code).values('discount', 'discount_type')
+    print(f'coupon: {list(coupon)}') # 
+
+    if coupon:
+        return JsonResponse(list(coupon)[0])
+    else:
+        return JsonResponse({})
+
 def updateItem(request):
 
     data = json.loads(request.body) # 將 POST request 的 body 以 json 讀取
