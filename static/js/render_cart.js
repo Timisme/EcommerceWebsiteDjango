@@ -15,10 +15,22 @@ for (let i= 0; i < cartInputBtns.length; i++){
         itemId = cartInputBtn.dataset.item
         console.log('orderId:', orderId)
         quantity = cartInputBtn.value
-        data = await updateOrderItem(productId, itemId, orderId, quantity)
-        console.log('data from updateorderitem:', data)
-        await renderOrderItem(productId, data['get_total'])
-        await renderOrder(orderId)
+
+        if(user === 'AnonymousUser'){
+            console.log('please log in first')
+            // cart = await AnonymousUpdateCart(productId, quantity)
+            // console.log('cart data:', cart)
+            // subtotal = cart[productId]['price'] * cart[productId]['quantity']
+            // await renderOrderItem(productId, subtotal)
+            // await AnonymousRenderCart()
+
+        } else {
+            data = await updateOrderItem(productId, itemId, orderId, quantity)
+            console.log('data from updateorderitem:', data)
+            await renderOrderItem(productId, data['get_total'])
+            await renderOrder(orderId)
+        }
+        
     })
 }
 
@@ -73,9 +85,42 @@ async function renderOrder(currentOrderId){
         return res.json()
     })
     .then((data) => {
-    // console.log('fetch order data success:', data)
     cartTotal.innerText = `$ ${data['get_cart_total']}`
     console.log('cart total has been rerendered:', data['get_cart_total'])
-    // cartItems.innerText = data['get_cart_items']
     })
 }
+
+// 匿名 User 
+
+// async function AnonymousUpdateCart(productId, quantity){
+//     const url = "/update_item/"
+    
+//     let cart = await fetch(url, {
+//         method: 'POST', 
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'X-CSRFToken': csrftoken,
+//         },
+//         body: JSON.stringify({
+//             'productId': productId,
+//             'action': false,
+//             'quantity': quantity,
+//         }),
+//     })
+//     .then(res => {res.json()})
+//     .then(data => {
+//         return data
+//     })
+
+//     return cart 
+// }
+
+// async function AnonymousRenderCart(cart){
+//     let cartTotal = document.getElementById('cart-total')
+//     let cart_total = 0
+
+//     for (const element of cart){
+//         element
+//     }  
+//     cartTotal.innerText = `$ ${data['get_cart_total']}`
+// }

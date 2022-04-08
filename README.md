@@ -10,7 +10,9 @@ A ecommerce website featured with carts and payment functionality from Django
 6. Session 暫存購物車
 7. Celery 
 8. Redis as Cache
-9. Nginx? 
+9. Nginx
+10. docker
+11. API
 
 ## Paypal 金流
 
@@ -80,12 +82,40 @@ In-memory 的 key-value 資料庫，優點在於效能高。但有 data loss 的
 
 
 # Session framework 
+## 利用 Session 實踐匿名用戶狀態保存機制 (api 和 普通views)
+
+1. By default, Django stores sessions in your database (using the model django.contrib.sessions.models.Session
+2. cached session for faster performance 
+* Set SESSION_ENGINE to "django.contrib.sessions.backends.cache" for a simple caching session store. Session data will be stored directly in your cache. 
+* For persistent, cached data, set SESSION_ENGINE to "django.contrib.sessions.backends.cached_db". This uses a write-through cache – every write to the cache will also be written to the database. Session reads only use the database if the data is not already in the cache.
+* By default, Django only saves to the session database when the session has been modified
+* the SESSION_SAVE_EVERY_REQUEST setting to True. When set to True, Django will save the session to the database on every single request.
+
+* By default, SESSION_EXPIRE_AT_BROWSER_CLOSE is set to False, which means session cookies will be stored in users’ browsers for as long as SESSION_COOKIE_AGE.
+
+* This setting is a global default and can be overwritten at a per-session level by explicitly calling the set_expiry() method of request.session 
+
+* user login in -> django.session db 新增資料，logout -> 刪除資料。如果沒有 logout，expired session data 要手動刪除：clearsessions (可以用 celery 定期執行)；如果是 cache db 就會自動刪除 stale data 
+
+* 匿名用戶 session 流程
+1. 每個對 order, orderitem 的 api 都加入 anonymous user session 機制
+2. session 儲存 cart key, value = {'productid': {'quantity': 1},} 
+
+
+### Session in views 
+
+* When SessionMiddleware is activated, each HttpRequest object will have a session attribute, which is a dictionary-like object.
+
+### Session in rest framework 
+
+
 
 # drf-yasg Swagger
 
 1. 測試 rest api 
 2. swagger for testing, redoc for referencing 
 3. 
+
 
 
 

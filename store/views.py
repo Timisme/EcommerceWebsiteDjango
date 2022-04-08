@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import json
 import datetime
+
+from numpy import product
 from .models import *
 from .forms import ContactForm
 from .utils import cookieCart, cartData, guessOrder
@@ -106,16 +108,15 @@ def myaccount(request):
 
 def updateItem(request):
 
+    data = json.loads(request.body) # 將 POST request 的 body 以 json 讀取
+    productId = data['productId']
+    action = data['action']
+    quantity = int(data['quantity'])
+
     if request.user.is_authenticated:
-        data = json.loads(request.body) # 將 POST request 的 body 以 json 讀取
-        
-        productId = data['productId']
-        action = data['action']
-        quantity = int(data['quantity'])
 
         customer = request.user.customer
         product = Product.objects.get(id= productId)
-
         order, created = Order.objects.get_or_create(customer= customer, complete= False)
         # If multiple objects are found, get_or_create() raises MultipleObjectsReturned. 
         # If an object is not found, get_or_create() will instantiate and save a new object, 
@@ -135,13 +136,43 @@ def updateItem(request):
             orderItem.delete()
 
         return JsonResponse('Item quantity was updated!', safe= False)
+        
     else:
-        return JsonResponse('User not logged in', safe= False)
+        print('user not logged in')
+        return JsonResponse('user not logged in!', safe= False)
+        # cart = request.session.get('cart', {})
+        # product = Product.objects.get(id= productId)
 
+        # if productId not in cart.keys():
+        #     cart[productId] = {
+        #         'quantity': 0
+        #     }
 
+        # if action == 'add':
+        #     cart[productId]['quantity'] += quantity
+            
+        # elif action == 'remove':
+        #     cart[productId]['quantity'] -= quantity
+
+        #     if cart[productId]['quantity'] <= 0:
+        #         del cart[productId] 
+
+        # elif action == False:
+        #     cart[productId]['quantity'] = quantity
+
+        # # 僅儲存 productId, quantity
+        # request.session['cart'] = cart 
+        # request.session.modified = True 
+
+        # # return cart 包含 product price
+        # cart[productId]['price'] = float(product.price) 
+        # print('cart:', cart)
+
+        # return JsonResponse(cart)
     
 
     '''safe: If it’s set to False, any object can be passed for serialization (otherwise only dict instances are allowed)'''
+
 
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()

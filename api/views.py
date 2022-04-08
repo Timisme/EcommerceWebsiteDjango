@@ -17,7 +17,7 @@ class OrderList(APIView):
 
     def get(self, request):
         customer = request.user.customer
-        print('customer:', customer)
+        # print('customer:', customer)
         queryset = Order.objects.filter(customer__name__iexact = customer).order_by('id')
         serializer = OrderSerializer(queryset, many= True)
         return Response(serializer.data)
