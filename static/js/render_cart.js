@@ -9,12 +9,11 @@ cartInputBtns = document.getElementsByClassName('update-cart')
 for (let i= 0; i < cartInputBtns.length; i++){
     let cartInputBtn = cartInputBtns[i]
     cartInputBtn.addEventListener('change', async function(e){
-        e.preventDefault()
-        orderId = await getCurrentOrderId()
-        productId = cartInputBtn.dataset.product 
-        itemId = cartInputBtn.dataset.item
-        console.log('orderId:', orderId)
-        quantity = cartInputBtn.value
+        e.preventDefault();
+        let orderId = await getCurrentOrderId();
+        let productId = cartInputBtn.dataset.product ;
+        let itemId = cartInputBtn.dataset.item;
+        let quantity = cartInputBtn.value;
 
         if(user === 'AnonymousUser'){
             console.log('please log in first')
@@ -25,10 +24,10 @@ for (let i= 0; i < cartInputBtns.length; i++){
             // await AnonymousRenderCart()
 
         } else {
-            data = await updateOrderItem(productId, itemId, orderId, quantity)
+            let data = await updateOrderItem(productId, itemId, orderId, quantity);
             console.log('data from updateorderitem:', data)
-            await renderOrderItem(productId, data['get_total'])
-            await renderOrder(orderId)
+            await renderOrderItem(productId, data['get_total']);
+            await renderOrder(orderId);
         }
         
     })
@@ -73,6 +72,7 @@ async function renderOrderItem(productId, subtotal){
 async function renderOrder(currentOrderId){
     let url = `http://127.0.0.1:8000/api/order/${currentOrderId}`
     let cartTotal = document.getElementById('cart-total')
+    let cartTotalFinal = document.getElementById('cart-total-final')
 
     await fetch(url, {
     method: 'GET',
@@ -86,6 +86,7 @@ async function renderOrder(currentOrderId){
     })
     .then((data) => {
     cartTotal.innerText = `$ ${data['get_cart_total']}`
+    cartTotalFinal.innerHTML = `<strong>$ ${data['get_cart_total_final']}</strong>`
     console.log('cart total has been rerendered:', data['get_cart_total'])
     })
 }

@@ -6,7 +6,7 @@ A ecommerce website featured with carts and payment functionality from Django
 2. 會員系統
 3. 表單系統
 4. 商品分類
-5. 優惠券系統
+5. newsletter系統
 6. Session 暫存購物車
 7. Celery 
 8. Redis as Cache

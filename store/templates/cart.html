@@ -50,12 +50,12 @@
                     <td id="cart-total" >$ {{order.get_cart_total}}</td>
                 </tr>
                 <tr>
-                    <td>Shipping</td>
-                    <td>Free</td>
+                    <td>Shipping Fee</td>
+                    <td>$ {{order.shipping_fee}}</td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>$ {{order.get_cart_total}}</strong></td>
+                    <td id="cart-total-final"><strong>$ {{order.get_cart_total_final}}</strong></td>
                 </tr>
             </table>
             <a href="{% url 'checkout' %}" class="button">Proceed To Checkout</a>

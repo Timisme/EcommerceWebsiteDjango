@@ -1,5 +1,6 @@
 from distutils.command.upload import upload
 from email.policy import default
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import CharField
@@ -48,6 +49,7 @@ class Order(models.Model):
 	date_ordered = models.DateTimeField(auto_now_add=True)
 	complete = models.BooleanField(default=False)
 	transaction_id = models.CharField(max_length=100, null=True)
+	shipping_fee = models.DecimalField(decimal_places=2, default= 60.00, max_digits= 7)
 
 	def __str__(self):
 		return str(self.id)
@@ -73,6 +75,12 @@ class Order(models.Model):
 		orderitems = self.orderitem_set.all()
 		total = sum([item.quantity for item in orderitems])
 		return total 
+	
+	@property
+	def get_cart_total_final(self):
+		orderitems = self.orderitem_set.all()
+		total = sum([item.get_total for item in orderitems])
+		return total + self.shipping_fee
 
 class OrderItem(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
