@@ -111,4 +111,10 @@ class Contact(models.Model):
 		# return datetime.strftime(self.date_sent, '%Y-%m-%d %H:%M:%S')
 		return self.subject
 
+class Newsletter(models.Model):
+	email = models.EmailField(unique= True, blank= False, null= False)
+	date_sent = models.DateTimeField(auto_now_add= True)
+
+	def __str__(self):
+		return self.email
 	

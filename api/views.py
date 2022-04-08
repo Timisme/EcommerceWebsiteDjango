@@ -121,6 +121,18 @@ class OrderItemDetail(APIView):
         orderitem.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class NewsletterList(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        # print(f'data:{request.data}')
+        serializer = NewsletterSerializer(data= request.data, many= False)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+
 
 
 # order, created = Order.objects.get_or_create(customer= customer, complete= False)

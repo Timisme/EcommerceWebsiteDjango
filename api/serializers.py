@@ -28,3 +28,8 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
     class Meta: 
         model = ShippingAddress
         fields = '__all__'
+
+class NewsletterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Newsletter
+        fields = ['email']
