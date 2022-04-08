@@ -121,7 +121,10 @@ In-memory 的 key-value 資料庫，優點在於效能高。但有 data loss 的
 
 1. celery 4.0+ 不支援 windows：只能在 dev, test 環境起 worker，需要加 --pool=solo: celery -A <module> worker --pool=solo -l info，變成 single threaded
 
-2. 
+# Redis 
+1. `docker exec -it myredis /bin/sh` 進入容器
+2. `redis-cli` 使用 redis 指令
+3. `KEYS *` 列出所有 KEYS
 
 
 
