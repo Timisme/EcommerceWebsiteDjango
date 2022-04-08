@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -160,4 +161,15 @@ try:
     from .settings_local import * 
 except:
     pass
+
+CELERY_BEAT_SCHEDULE = {
+    "newsletter-send-emails":{
+        "task": "store.tasks.send_email",
+        "schedule": crontab(
+            day_of_week= '*',
+            hour= '*',
+            minute= '*/1'
+        )
+    }
+}
 

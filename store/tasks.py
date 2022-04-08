@@ -1,5 +1,3 @@
-from cgitb import html
-from distutils.command.config import config
 import celery
 from django.core.mail import EmailMultiAlternatives, get_connection
 from django.template.loader import render_to_string
@@ -25,7 +23,7 @@ def send_email():
     email = EmailMultiAlternatives(
         subject = 'hi',
         from_email = 'tim@data-sci.info',
-        to = ['tim@data-sci.info']
+        to = to_emails
     )
 
     with get_connection(
