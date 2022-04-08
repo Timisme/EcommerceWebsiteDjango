@@ -1,6 +1,20 @@
 version: '3'
 
 services:
+
+  db:
+    image: "postgres:14.2-alpine"
+    container_name: "db"
+    restart: always
+    ports: 
+      - "5432:5432"
+    volumes:
+      - database-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+  
   redis:
     # image: "redis:6.2.3-alpine"
     image: "myredis"
@@ -17,3 +31,11 @@ services:
       resources:
         limits:
           memory: 1G
+
+volumes: 
+  database-data:
+  # redis-data:
+
+# networks:
+#   external:
+#     web-service

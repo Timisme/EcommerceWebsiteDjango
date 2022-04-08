@@ -59,8 +59,8 @@
 
     <section id="newsletter" class= "section-p1 section-m1">
         <div class="newstext">
-            <h4>newsletter</h4>
-            <p>get<span>special offer</span></p>
+            <h4>NEWSLETTER</h4>
+            <p>Get Special Offer</span></p>
         </div>
         <div class="form">
             <input type="text" name= "email" placeholder="Your email address" class="newsletter-input">
@@ -69,34 +69,38 @@
     </section>
 
     <footer class= "section-p1">
-        <div class="col">
-            <img src="{% static 'images/logo.png' %}" alt="">
-            <h4>Contact</h4>
-            <p><strong>Address:</strong>sdsdsd</p>
-            <p><strong>Phone:</strong>sdsdsd</p>
-            <p><strong>Hours:</strong>sdsdsd</p>
-            <div class="follow">
-                <h4>Follow Us</h4>
-                <div class="icon">
-                    <i class= "fab fa-facebook-f"></i>
-                    <i class= "fab fa-instagram"></i>
-                    <i class= "fab fa-youtube"></i>
+
+        <div class="top">
+            <div class="col">
+                <img src="{% static 'images/logo.png' %}" alt="">
+                <h4>Contact</h4>
+                <p><strong>Address:</strong>sdsdsd</p>
+                <p><strong>Phone:</strong>sdsdsd</p>
+                <p><strong>Hours:</strong>sdsdsd</p>
+                <div class="follow">
+                    <h4>Follow Us</h4>
+                    <div class="icon">
+                        <i class= "fab fa-facebook-f"></i>
+                        <i class= "fab fa-instagram"></i>
+                        <i class= "fab fa-youtube"></i>
+                    </div>
                 </div>
             </div>
+            <div class="col">
+                <h4>About</h4>
+                <a href="#" class="">About Us</a>
+                <a href="#" class="">Delivery Infomation</a>
+                <a href="{% url 'contact' %}" class="">Contact Us</a>
+            </div>
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="{% url 'login' %}" class="">Sign in</a>
+                <a href="{% url 'cart' %}" class="">View Cart</a>
+                <a href="#" class="">Track My Order</a>
+                <a href="#" class="">Help</a>
+            </div>
         </div>
-        <div class="col">
-            <h4>About</h4>
-            <a href="" class="">About Us</a>
-            <a href="" class="">Delivery Infomation</a>
-            <a href="" class="">Contact Us</a>
-        </div>
-        <div class="col">
-            <h4>My Account</h4>
-            <a href="" class="">Sign in</a>
-            <a href="" class="">View Cart</a>
-            <a href="" class="">Track My Order</a>
-            <a href="" class="">Help</a>
-        </div>
+        
         <div class="copyright">
             <p>@ 2021, Tim - HTML CSS JS DJANGO ECCOMERCE</p>
         </div>
