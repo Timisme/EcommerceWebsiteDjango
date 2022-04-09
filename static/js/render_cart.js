@@ -91,6 +91,52 @@ async function renderOrder(currentOrderId){
     })
 }
 
+async function updateUserOrder(productId, action, quantity) {
+    let url = '/update_item/' // urls 對應的 view 會 handle request 
+
+    await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({
+            'productId': productId,
+            'action': action,
+            'quantity': quantity,
+        }),
+    })
+    .then((response) => {
+        return response.json()
+    })
+    .then((data) => {
+        console.log('data:', data)
+        console.log('updateUserOrder Success')
+        // location.reload() // 刷新頁面 沒效率
+    })
+}
+
+async function getCurrentOrderId(){
+    let url = 'http://127.0.0.1:8000/api/order/'
+
+    const currentOrderId = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        })
+        .then((res) => {
+            return res.json() // 需要 return 
+        })
+        .then((data) => {
+            console.log('getCurrentOrder:', data)
+            return Array.from(data).filter(order => order.complete == false)[0]['id']
+        })
+
+    return currentOrderId
+}
+
 // 匿名 User 
 
 // async function AnonymousUpdateCart(productId, quantity){

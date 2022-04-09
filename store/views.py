@@ -9,7 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import json
-import datetime
+from datetime import datetime
 from .models import *
 from .forms import ContactForm
 from .utils import cookieCart, cartData, guessOrder
@@ -95,7 +95,6 @@ def showCategory(request, pk):
     return render(request, 'shop.html', context= data)
 
 def cart(request):
-    # if the user is authenticed 
 
     data = cartData(request)
 
@@ -111,22 +110,10 @@ def cart(request):
     return render(request, 'cart.html', context= data)
 
 def checkout(request):
-
-    data = cartData(request)
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
-        
-    products = Product.objects.all()
-
-    context = {
-        'products': products,
-        'items': items,
-        'order':  order,
-        'cartItems': cartItems
-    }
     
-    return render(request, 'checkout.html', context)
+    data = cartData(request)
+    
+    return render(request, 'checkout.html', context= data)
 
 def myaccount(request):
     return render(request, 'myaccount.html')
@@ -211,7 +198,7 @@ def updateItem(request):
 
 
 def processOrder(request):
-    transaction_id = datetime.datetime.now().timestamp()
+    transaction_id = datetime.now().timestamp()
     data = json.loads(request.body)
 
     # 如果 user 有登入，則找出該user的 order(未完成), 沒有的話創建一個 Order  

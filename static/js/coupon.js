@@ -1,6 +1,9 @@
+// 1. 按下 apply 按鈕，得到 input 的 code，並在後端認證
+// 2. 如果驗證成功，並且該 coupon 是對運費有折扣，則呼叫 api 更新該筆訂單的運費。
+
 const couponBtn = document.querySelector('.coupon-btn')
 const couponInput = document.querySelector('.coupon-input')
-// console.log(couponBtn)
+console.log(couponBtn)
 couponBtn.addEventListener('click', async function(e){
     e.preventDefault();
     let code = couponInput.value;

@@ -70,7 +70,7 @@
                 </div>
                 <h4>${{product.price}}</h4>
             </div>
-            <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity= getItemQauntity(input_tag_id) class="add-to-cart update-quantity"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity= "1" class="add-to-cart"><i class="fa-solid fa-cart-shopping cart"></i></a>
         </div>
     {% endfor %}
     </div>

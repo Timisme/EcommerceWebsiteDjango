@@ -14,6 +14,14 @@ A ecommerce website featured with carts and payment functionality from Django
 10. docker
 11. API
 
+- session 使用
+    - 儲存使用者有瀏覽 product-detail 頁面的 product
+    - 顯示於 cart 頁面的 most viewed section
+
+- cache 使用
+    - home page 的 featured product `不常更動又常存取`，使用 cache 快速存取
+
+
 ## Paypal 金流
 
 1. 使用 Paypal Sandbox 測試
@@ -100,7 +108,6 @@ In-memory 的 key-value 資料庫，優點在於效能高。但有 data loss 的
 * 匿名用戶 session 流程
 1. 每個對 order, orderitem 的 api 都加入 anonymous user session 機制
 2. session 儲存 cart key, value = {'productid': {'quantity': 1},} 
-
 
 ### Session in views 
 
