@@ -1,4 +1,3 @@
-from socket import timeout
 from django.shortcuts import render
 from django.conf import settings
 from django.core import serializers

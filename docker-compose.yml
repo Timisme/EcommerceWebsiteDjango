@@ -1,6 +1,19 @@
 version: '3'
 
 services:
+
+  web:
+    build: ./django_site
+    container_name: web
+    restart: always
+    env_file:
+      - .env
+    # command: sh /app/entrypoint.sh
+    ports:
+      - "8000:8080"
+    volumes:
+      - ./django_site:/app
+
   db:
     image: "postgres:14.2-alpine"
     container_name: "db"
@@ -31,8 +44,17 @@ services:
         limits:
           memory: 1G
 
+  # nginx:
+  #   build: ./nginx
+  #   container_name: nginx
+  #   volumes:
+  #     - static:/static
+  #   ports:
+  #     - "8080:80"
+
 volumes: 
   database-data:
+  static:
   # redis-data:
 
 # networks:

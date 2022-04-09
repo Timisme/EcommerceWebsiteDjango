@@ -1,4 +1,3 @@
-from attr import field
 from django.forms import EmailInput, ModelForm
 from django import forms
 from .models import Contact

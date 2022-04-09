@@ -1,9 +1,13 @@
-FROM python:3.9-alpine
+FROM python:3.9-slim-buster
 
 RUN pip install --upgrade pip 
+RUN apt-get update
+RUN apt-get install -y gcc 
 
-COPY ./django_site /app
+COPY . /app
 WORKDIR /app 
 
-COPY ./entrypoint.sh /
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+RUN pip install -r requirements.txt
+
+# COPY ./entrypoint.sh /
+ENTRYPOINT ["sh", "/app/entrypoint.sh"]
