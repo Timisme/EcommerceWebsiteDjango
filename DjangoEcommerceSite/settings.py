@@ -149,10 +149,11 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         'LOCATION': 'redis://127.0.0.1:6379',
-        "OPTIONS":{
-            'CLIENT_CLASS': "django.redis.client.DefaultClient",
-            'PASSWORD': "password",
-        }
+        'TIMEOUT': 60,
+        # "OPTIONS":{
+        #     'username': 'root',
+        #     'password': 'password',
+        # }
     }
 }
 

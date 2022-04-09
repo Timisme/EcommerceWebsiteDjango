@@ -71,7 +71,7 @@ body{
     align-items: center;
     justify-content: space-between;
     padding: 20px 80px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(226, 226, 226, 0.808);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
     /* x, y, radius */
     position: sticky;
@@ -725,4 +725,10 @@ footer .copyright{
     /* text-decoration: none; */
     font-weight: 600;
     color: #088178;
+}
+
+/* viewed-product */
+
+#viewed-product {
+    text-align: center;
 }

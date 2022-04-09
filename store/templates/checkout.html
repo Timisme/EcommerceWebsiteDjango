@@ -3,6 +3,20 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+
+<section id="header">
+	<a href="#"><img src="{% static 'images/logo.png' %}" alt=""></a>
+	<div>
+		<ul id="navbar">
+			<li><a href="{% url 'home' %}" class="navbtn">Home</a></li>
+			<li><a href="{% url 'shop' %}" class="navbtn">Shop</a></li>
+			<li><a href="{% url 'contact' %}" class="navbtn">Contact</a></li>
+			<li><a href="{% url 'cart' %}" class="navbtn active"><i class="fa-solid fa-bag-shopping"></i></a></li>
+			<li><a href="{% url 'login' %}" class="navbtn"><i class="fa-solid fa-user"></i></a></li>
+		</ul>
+	</div>
+</section>
+
 <div id="row">
 	<div class="col-lg-6">
 		<div class="box-element" id="form-wrapper">

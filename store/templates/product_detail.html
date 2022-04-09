@@ -2,6 +2,19 @@
 {% load static %}
 {% block content %}
 
+    <section id="header">
+        <a href="#"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="{% url 'home' %}" class="navbtn">Home</a></li>
+                <li><a href="{% url 'shop' %}" class="navbtn active">Shop</a></li>
+                <li><a href="{% url 'contact' %}" class="navbtn">Contact</a></li>
+                <li><a href="{% url 'cart' %}" class="navbtn"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                <li><a href="{% url 'login' %}" class="navbtn"><i class="fa-solid fa-user"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
     <section id="product-detail" class="section-p1">
         <div class="single-product-img">
             <img src="{{ product.imageURL }}" width= "100%" class= "main-img" alt="">

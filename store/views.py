@@ -1,14 +1,15 @@
+from socket import timeout
 from django.shortcuts import render
 from django.conf import settings
+from django.core import serializers
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.views.decorators.cache import cache_page
+from django.core.cache import cache # default cache = caches['default'].
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import json
 import datetime
-
-from numpy import product
 from .models import *
 from .forms import ContactForm
 from .utils import cookieCart, cartData, guessOrder
@@ -23,9 +24,13 @@ def home(request):
 
     data = cartData(request)
 
-    products = Product.objects.all()
-    data['products'] = products 
+    if cache.get('featured_products'):
+        featured_products = cache.get('featured_products')
+    else:
+        featured_products = Product.objects.filter(is_featured = True)
+        cache.set('featured_products', featured_products, timeout= 30)
     
+    data['products'] = featured_products
     return render(request, 'home.html', context= data)
 
 def shop(request):
@@ -40,6 +45,7 @@ def shop(request):
 
     return render(request, 'shop.html', context= data)
 
+@cache_page(timeout= CACHE_TTL, cache= None, key_prefix= None)
 def contact(request):
 
     if request.method == 'POST':
@@ -56,13 +62,26 @@ def contact(request):
 def product_detail(request, pk):
 
     data = cartData(request)
-    # cartItems = data['cartItems']
-    # order = data['order']
-    # items = data['items']
-
     product = Product.objects.get(id= pk)
-
     data['product'] = product
+    # print('serialized product:', serializers.serialize('json', [product, ]))
+
+    # session part 
+    request.session.set_expiry(0) # value = 0 means the user session cookie will expire when the user's web brower is closed
+
+    if request.session.get('viewed', None):
+        # request.session.flush()
+        product_id_list = request.session['viewed']
+        if pk in product_id_list:
+            print('product id already exists in session backend')
+            pass
+        else:
+            product_id_list.append(pk)
+            request.session['viewed'] = product_id_list
+            request.session.modified = True
+    else:
+        print('create viewd session key')
+        request.session['viewed'] = [pk, ]
 
     return render(request, 'product_detail.html', context= data)
 
@@ -80,7 +99,13 @@ def cart(request):
 
     data = cartData(request)
 
-    # products = Product.objects.all()
+    viewed_products_ids= request.session.get('viewed', None)
+
+    if viewed_products_ids:
+        data['products'] = Product.objects.filter(pk__in = viewed_products_ids)
+    else:
+        data['products'] = None
+
     # 將 cookie 中的 cart tag 對應的 value 存在 context, 讓 html render 顯示總價與數量
     # (web server 存的數值於後端加工後再 render 到前端)
     return render(request, 'cart.html', context= data)

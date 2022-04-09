@@ -1,6 +1,20 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
+
+    <section id="header">
+        <a href="#"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="{% url 'home' %}" class="navbtn">Home</a></li>
+                <li><a href="{% url 'shop' %}" class="navbtn">Shop</a></li>
+                <li><a href="{% url 'contact' %}" class="navbtn">Contact</a></li>
+                <li><a href="{% url 'cart' %}" class="navbtn active"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                <li><a href="{% url 'login' %}" class="navbtn"><i class="fa-solid fa-user"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
     <section id="cart-header" class="page-header">
         <h2>#Let's Shop!</h2>
         <p>Go get those cool gears!</p>
@@ -60,6 +74,31 @@
             </table>
             <a href="{% url 'checkout' %}" class="button">Proceed To Checkout</a>
             <!-- <button class= "normal"></button> -->
+        </div>
+    </section>
+
+    <section id= 'viewed-product', class="section-p1">
+        <h2>Products that You Recently Viewed</h2>
+        <div class="product-container">
+        {% for product in products %}
+            <div class="product">
+                <a href="{% url 'product_detail' pk=product.id %}" class="clickable"></a>
+                <img src="{{ product.imageURL }}" alt="">
+                <div class="description">
+                    <span>{{product.category}}</span>
+                    <h5>{{product.name}}</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>${{product.price}}</h4>
+                </div>
+                <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity= getItemQauntity(input_tag_id) class="add-to-cart update-quantity"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+        {% endfor %}
         </div>
     </section>
 {% endblock content %}

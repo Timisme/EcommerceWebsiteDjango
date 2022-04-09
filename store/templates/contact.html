@@ -1,6 +1,20 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
+
+    <section id="header">
+        <a href="#"><img src="{% static 'images/logo.png' %}" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="{% url 'home' %}" class="navbtn">Home</a></li>
+                <li><a href="{% url 'shop' %}" class="navbtn">Shop</a></li>
+                <li><a href="{% url 'contact' %}" class="navbtn active">Contact</a></li>
+                <li><a href="{% url 'cart' %}" class="navbtn"><i class="fa-solid fa-bag-shopping"></i></a></li>
+                <li><a href="{% url 'login' %}" class="navbtn"><i class="fa-solid fa-user"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
     <section id="contact-header" class="page-header">
         <h2>#Let's Talk</h2>
         <p>LEAVE A MESSAGE, We love to hear from you!</p>
