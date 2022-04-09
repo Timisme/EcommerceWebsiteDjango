@@ -196,7 +196,6 @@ def updateItem(request):
 
     '''safe: If it’s set to False, any object can be passed for serialization (otherwise only dict instances are allowed)'''
 
-
 def processOrder(request):
     transaction_id = datetime.now().timestamp()
     data = json.loads(request.body)

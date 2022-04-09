@@ -133,6 +133,9 @@ In-memory 的 key-value 資料庫，優點在於效能高。但有 data loss 的
 - `redis-cli` 使用 redis 指令
 - `KEYS *` 列出所有 KEYS
 
+# Web server 
+- Django 常見的 Web Application Server 有 uWSGI、gunicorn。
+
 
 
 
