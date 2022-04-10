@@ -136,8 +136,22 @@ In-memory 的 key-value 資料庫，優點在於效能高。但有 data loss 的
 # Web server 
 - Django 常見的 Web Application Server 有 uWSGI、gunicorn。
 
+# docker-compose 
+- docker containers 之間連線：docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' myredis
 
+# NGINX & uWSGI 
+- the web client <-> the web server （ Nginx ） <-> unix socket <-> uWSGI <-> Django
+- Nginx 負責靜態內容（html js css 圖片...... ），uWSGI 負責 Python 的動態內容。
+- uWSGI 對於靜態內容處理的並不是很好（ 效能差 ），所以我們可以透過
 
+    Nginx 來處理靜態內容，而且使用 Nginx 還有很多好處，
+    Nginx 比起 uWSGI 能更好地處理靜態資源
+    Nginx 可以設定 Cache 機制
+    Nginx 可以設定 反向代理器
+    Nginx 可以進行多台機器的負載平衡（ Load balance ）
 
+- web server 好處
+    - 保護 server 安全，避免直接對 server 攻擊
+    - 可以做 cache 機制
 
 

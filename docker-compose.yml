@@ -3,16 +3,19 @@ version: '3'
 services:
 
   web:
-    build: ./django_site
     container_name: web
+    build: ./django_site
     restart: always
     env_file:
       - .env
-    # command: sh /app/entrypoint.sh
-    ports:
-      - "8000:8080"
+    entrypoint: /app/entrypoint.sh
+    command: uwsgi --ini uwsgi.ini
+    # ports:
+    #   - "8000:8080"
     volumes:
       - ./django_site:/app
+    depends_on:
+      - db
 
   db:
     image: "postgres:14.2-alpine"
@@ -44,13 +47,17 @@ services:
         limits:
           memory: 1G
 
-  # nginx:
-  #   build: ./nginx
-  #   container_name: nginx
-  #   volumes:
-  #     - static:/static
-  #   ports:
-  #     - "8080:80"
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    restart: always
+    volumes:
+      - static:/static
+      - ./log:/var/log/nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - web
 
 volumes: 
   database-data:
@@ -58,5 +65,6 @@ volumes:
   # redis-data:
 
 # networks:
-#   external:
-#     web-service
+#   default:
+#     external:
+#       name: web-service
