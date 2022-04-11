@@ -15,7 +15,7 @@ for (let i=0; i < deleteBtns.length; i++){
 };
 
 async function deleteOrderItem(item_id){
-    url = `http://127.0.0.1:8000/api/orderItem/${item_id}`
+    url = `/api/orderItem/${item_id}`
     await fetch(url,{
         method: "DELETE",
         headers: {

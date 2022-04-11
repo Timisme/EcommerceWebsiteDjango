@@ -35,7 +35,7 @@ for (let i= 0; i < cartInputBtns.length; i++){
 
 // restapi 修改 orderitem 資料，並回傳更新後資料。
 async function updateOrderItem(productId, itemId, orderId, quantity){
-    url = `http://127.0.0.1:8000/api/orderItem/${itemId}`
+    url = `/api/orderItem/${itemId}`
 
     res = await fetch(url, {
         method: "PATCH",
@@ -70,7 +70,7 @@ async function renderOrderItem(productId, subtotal){
 
 // 給定 order id 將 html 動態修改
 async function renderOrder(currentOrderId){
-    let url = `http://127.0.0.1:8000/api/order/${currentOrderId}`
+    let url = `/api/order/${currentOrderId}`
     let cartTotal = document.getElementById('cart-total')
     let cartTotalFinal = document.getElementById('cart-total-final')
 
@@ -117,7 +117,7 @@ async function updateUserOrder(productId, action, quantity) {
 }
 
 async function getCurrentOrderId(){
-    let url = 'http://127.0.0.1:8000/api/order/'
+    let url = '/api/order/'
 
     const currentOrderId = await fetch(url, {
         method: 'GET',
