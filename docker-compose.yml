@@ -8,12 +8,18 @@ services:
     restart: always
     env_file:
       - .env
+    environment:
+      POSTGRES_HOST: "db"
+      LOCATION: "redis://myredis:6379"
+      BROKER_URL: "redis://myredis:6379"
+      CELERY_RESULT_BACKEND: "redis://myredis:6379"
+
     entrypoint: /app/entrypoint.sh
-    command: uwsgi --ini uwsgi.ini
+    command: ["/bin/bash", "-c", "uwsgi --ini uwsgi.ini"]
     # ports:
     #   - "8000:8080"
     volumes:
-      - ./django_site:/app
+      - web_data:/app
     depends_on:
       - db
 
@@ -30,7 +36,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
   
-  redis:
+  myredis:
     # image: "redis:6.2.3-alpine"
     image: "myredis"
     container_name: "myredis"
@@ -52,7 +58,7 @@ services:
     build: ./nginx
     restart: always
     volumes:
-      - static:/static
+      - web_data:/app
       - ./log:/var/log/nginx
     ports:
       - "8080:80"
@@ -61,7 +67,7 @@ services:
 
 volumes: 
   database-data:
-  static:
+  web_data:
   # redis-data:
 
 # networks:
