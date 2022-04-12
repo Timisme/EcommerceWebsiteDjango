@@ -2,7 +2,7 @@
 
 An ecommerce website from Django (Django Rest Framework included)
 
-# What features does it include?
+## What features does it include?
 
 1. Fast deployment with docker
 2. Rest api reference from swagger
@@ -11,7 +11,7 @@ An ecommerce website from Django (Django Rest Framework included)
 5. Using Session to store user's most recently viewed products    
 6. Using Nginx as web server to server static files
 
-# What can users do on the website? 
+## What can users do on the website? 
 
 1. can login & logout 
 2. can add products to the shopping cart 
@@ -21,15 +21,16 @@ An ecommerce website from Django (Django Rest Framework included)
 6. can paginate through the products 
 7. can place an order and pay with paypal
 
-# About Session and Cache
+### About Session and Cache
 - session
-    - session is created when a user views the product detail
+    - session is created when an user views the product detail
 - Cache
-    - Cache is created when the home page is requested the first time
+    - Cache is created when the home page is requested for the first time
 
 # Deployment
 
 > To deploy, simply run `docker-compose up -d`
+> use url `http://127.0.0.1:8080/swagger/` to look up the rest api
 
 
 
