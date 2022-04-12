@@ -1,13 +1,13 @@
-# EcommerceWebsiteDjango
+# My Ecommerce Website
 
 An ecommerce website from Django (__Django Rest Framework__ included)
 
 ## What features does it include?
 
-1. Fast deployment with __docker__
+1. Fast deployment with __docker-compose__
 2. Rest api reference from __swagger__
 3. Sending newsletter schedually Using __Celery__ 
-4. Can fetch resources faster by caching data with __Redis __
+4. Can fetch resources faster by caching data Using __Redis__
 5. Using Session to store user's most recently viewed products    
 6. Using __Nginx__ as web server to serve static files
 
@@ -33,7 +33,6 @@ An ecommerce website from Django (__Django Rest Framework__ included)
 ## APIs 
 > Use url `http://127.0.0.1:8080/swagger/` to look up the rest api documentation
 
-### ScreenShots of the website 
 
 
 
