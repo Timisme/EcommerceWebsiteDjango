@@ -16,7 +16,7 @@
     </section>
 
     <section id="register" class="form-detail">
-        <h2>註冊</h2>
+        <h2>Register</h2>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form }}
@@ -26,8 +26,8 @@
             <input type="password" required placeholder="你的密碼"> -->
             <!-- <span>確認密碼</span>
             <input type="password" required placeholder="再輸入一次密碼"> -->
-            <button class="normal">註冊</button>
+            <button class="normal">Register</button>
         </form>
-        <h4>有帳戶了？<a href="{% url 'login' %}">立即登入</a></h4>
+        <h4>Have an account？<a href="{% url 'login' %}">Sign in right now!</a></h4>
     </section>
 {% endblock content %}

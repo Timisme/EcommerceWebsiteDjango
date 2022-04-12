@@ -33,8 +33,22 @@ An ecommerce website from Django (__Django Rest Framework__ included)
 ## APIs 
 > Use url `http://127.0.0.1:8080/swagger/` to look up the rest api documentation
 
+## ScreenShots 
 
+### Product List Page
+![](https://i.imgur.com/F2NTbxD.jpg)
 
+### Login Page
+![](https://i.imgur.com/aSCwDxQ.png)
+
+### Cart Page
+![](https://i.imgur.com/MczKrGT.png)
+
+### Checkout Page
+![](https://i.imgur.com/m6PWZt4.png)
+
+### Most Recently viewd Section
+![](https://i.imgur.com/CsHxl2q.png)
 
 
 

@@ -23,9 +23,9 @@
 
     <section id= "shop-section" class= "section-p1">
         <div id="category">
-            <h2>商品類別</h2>
+            <h2>Product Categories</h2>
             <div class="list-group">
-                <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'shop' %}" class="">全部</a></button>
+                <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'shop' %}" class="">ALL</a></button>
                 {% for category in category_set %}
                 <!-- <button type="button" class="list-group-item list-group-item-action active" aria-current="true">服裝</button> -->
                 <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'category' pk=category.id %}" class="">{{ category.name }}</a></button>

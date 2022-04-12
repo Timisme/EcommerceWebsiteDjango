@@ -16,16 +16,16 @@
     </section>
 
     <section id="login" class="form-detail">
-        <h2>登入</h2>
+        <h2>LOGIN</h2>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form }}
-            <span>帳號</span>
-            <input type="text" name= "username" required placeholder="你的帳號">
-            <span>密碼</span>
-            <input type="password" name= "password" required placeholder="你的密碼">
-            <button class="normal">登入</button>
+            <span>USERNAME</span>
+            <input type="text" name= "username" required placeholder="YOUR USERNAME">
+            <span>PASSWORD</span>
+            <input type="password" name= "password" required placeholder="YOUR PASSWORD">
+            <button class="normal">LOGIN</button>
         </form>
-        <h4>沒有帳號？<a href="{% url 'register' %}">立即註冊</a></h4>
+        <h4>Haven't had an account yet?<a href="{% url 'register' %}">Sign Up right now!</a></h4>
     </section>
 {% endblock content %}
