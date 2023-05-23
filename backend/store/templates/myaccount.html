@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 50px; height: 50vh;">
+    <a href="" class="btn btn-outline-secondary">我的訂單</a>
+    <a href="{% url 'logout' %}" class="btn btn-outline-secondary">登出</a>
+</div>
+
+
+{% endblock content %}

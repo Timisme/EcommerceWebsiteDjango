@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="cart-header" class="page-header">
+        <h2>#購買商品</h2>
+    </section>
+
+    <section id="cart" class= "section-p1">
+        <table width= "100%">
+            <thead> 
+                <tr>
+                    <td>刪除</td> <!-- table heading, row, data -->
+                    <td>照片</td>
+                    <td>產品名稱</td>
+                    <td>價格</td>
+                    <td>數量</td>
+                    <td>總價</td> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr class= "cart-row" data-product= "{{item.product.id}}">
+                    <td class="cart-delete" data-product= "{{item.product.id}}" data-item= "{{item.id}}"><a href=""><i class= "far fa-times-circle"></i></a></td>
+                    <td><img src="{{ item.product.imageURL }}" alt=""></td>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td><input type="number" min="1" max= "99" value="{{item.quantity}}" class="update-cart" data-item= {{item.id}} data-product= "{{item.product.id}}"></td>
+                    <td data-product="{{item.product.id}}" class="subtotal">${{ item.get_total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="cart-add" class= "section-p1">
+        <div id="coupon">
+            <h3>使用優惠券</h3>
+            <div id="coupon-input-area">
+                <input type="text" placeholder="Enter Your Coupon" name="code" class="coupon-input">
+                <a href= "#" class="button coupon-btn">立即使用</a>
+            </div>
+        </div>
+
+        <div id="subtotal">
+            <h3>購物車總額</h3>
+            <table>
+                <tr>
+                    <td>商品金額</td>
+                    <td id="cart-total" >$ {{order.get_cart_total}}</td>
+                </tr>
+                <tr>
+                    <td>運送費</td>
+                    <td id="cart-shipping">$ {{order.shipping_fee}}</td>
+                </tr>
+                <tr>
+                    <td><strong>總額</strong></td>
+                    <td id="cart-total-final"><strong>$ {{order.get_cart_total_final}}</strong></td>
+                </tr>
+            </table>
+            <a href="{% url 'checkout' %}" class="button">繼續付款</a>
+            <!-- <button class= "normal"></button> -->
+        </div>
+    </section>
+
+    <section id= 'viewed-product', class="section-p1">
+        <h2>最近瀏覽過的商品</h2>
+        <div class="product-container">
+        {% for product in products %}
+            <div class="product">
+                <a href="{% url 'product_detail' pk=product.id %}" class="clickable"></a>
+                <img src="{{ product.imageURL }}" alt="">
+                <div class="description">
+                    <span>{{product.category}}</span>
+                    <h5>{{product.name}}</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>${{product.price}}</h4>
+                </div>
+                <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity= "1" class="add-to-cart reload"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+{% endblock content %}

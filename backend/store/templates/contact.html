@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="contact-header" class="page-header">
+        <h2>#聯絡我們</h2>
+    </section>
+
+    <section id="contact" class="form-detail">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <h4>留下你的寶貴意見!</h4>
+            {{ form }}
+            <button class="normal">送出</button>
+        </form>
+    </section>
+{% endblock content %}

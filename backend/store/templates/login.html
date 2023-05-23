@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="login" class="form-detail">
+        <h2>登入</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <span>使用者名稱</span>
+            <input type="text" name= "username" required placeholder="請輸入使用者名稱">
+            <span>密碼</span>
+            <input type="password" name= "password" required placeholder="請輸入密碼">
+            <button class="normal">登入</button>
+        </form>
+        <h4>還沒有帳戶嗎？<a href="{% url 'register' %}">立即註冊!</a></h4>
+    </section>
+{% endblock content %}

@@ -4,7 +4,10 @@ services:
 
   web:
     container_name: web
-    build: ./django_site
+    image: django-ecommerce-web:latest
+    build: 
+      context: backend
+      dockerfile: ./docker/Dockerfile
     restart: always
     env_file:
       - .env
@@ -16,10 +19,36 @@ services:
 
     entrypoint: /app/entrypoint.sh
     command: ["/bin/bash", "-c", "uwsgi --ini uwsgi.ini"]
+    volumes:
+      - static-data:/app/static
+      - ./backend/log:/app/log
     # ports:
     #   - "8000:8080"
+    depends_on:
+      - db
+
+  web-worker:
+    container_name: web-worker
+    image: django-ecommerce-web:latest
+    build: 
+      context: backend
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: "db"
+      LOCATION: "redis://myredis:6379"
+      BROKER_URL: "redis://myredis:6379"
+      CELERY_RESULT_BACKEND: "redis://myredis:6379"
+
+    entrypoint: /app/entrypoint.sh
+    command: celery -A config worker -B -l INFO -f log/worker.log -Q django-ecommerce -c 1
     volumes:
-      - web_data:/app
+      - static-data:/app/static
+      - ./backend/log:/app/log
+    # ports:
+    #   - "8000:8080"
     depends_on:
       - db
 
@@ -36,6 +65,15 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
   
+  broker: 
+    container_name: broker
+    image: rabbitmq:3.8.14-management-alpine 
+    restart: on-failure
+    ports: 
+      - 8076:15672
+    expose:
+      - 5672
+      
   myredis:
     # image: "redis:6.2.3-alpine"
     image: "myredis"
@@ -58,7 +96,7 @@ services:
     build: ./nginx
     restart: always
     volumes:
-      - web_data:/app
+      - static-data:/static
       - ./log:/var/log/nginx
     ports:
       - "8080:80"
@@ -67,10 +105,10 @@ services:
 
 volumes: 
   database-data:
-  web_data:
+  static-data: 
   # redis-data:
 
-# networks:
-#   default:
-#     external:
-#       name: web-service
+networks:
+  default:
+    external:
+      name: django-ecommerce-website-network

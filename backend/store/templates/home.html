@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<section id="hero">
+    <h1>自由潛水</h1>
+    <h2>一口氣的平靜</h2>
+    <h4>所有你要的裝備都在這</h4>
+    <a href="{% url 'shop' %}"><button>瀏覽裝備</button></a>
+</section>
+
+<section id= 'featured-product', class="section-p1">
+    <h2>熱門商品</h2>
+    <p>最高瀏覽次數的商品</p>
+    <div class="product-container">
+    {% for product in products %}
+        <div class="product">
+            <a href="{% url 'product_detail' pk=product.id %}" class="clickable"></a>
+            <img src="{{ product.imageURL }}" alt="">
+            <div class="description">
+                <span>{{product.category}}</span>
+                <h5>{{product.name}}</h5>
+                <div class="star">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>${{product.price}}</h4>
+            </div>
+            <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity= "1" class="add-to-cart"><i class="fa-solid fa-cart-shopping cart"></i></a>
+        </div>
+    {% endfor %}
+    </div>
+</section>
+
+<section id="banner" class= "seciton-m1">
+    <h2>我們是誰?</h2>
+    <h4>我們是專業自潛員，也販售各種裝備</h4>
+    <button class="normal">關於我們</button>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+    <section id="product-detail" class="section-p1">
+        <div class="single-product-img">
+            <img src="{{ product.imageURL }}" width= "100%" class= "main-img" alt="">
+            <!-- <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="{% static 'images/products/f1.jpg' %}" width= "100%" class= "small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="{% static 'images/products/f2.jpg' %}" width= "100%" class= "small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="{% static 'images/products/f3.jpg' %}" width= "100%" class= "small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="{% static 'images/products/f4.jpg' %}" width= "100%" class= "small-img" alt="">
+                </div>
+            </div> -->
+        </div>
+
+        <div class="single-product-detail">
+            <h6>首頁/ {{ product.category }}</h6>
+            <h4>{{ product.name }}</h4>
+            <h2>${{ product.price }}</h2>
+            <select name="" id="">
+                <option value="">S</option>
+                <option value="">M</option>
+                <option value="">L</option>
+            </select>
+            <input id= 'item-quantity-input' type="number" value="1">
+            <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity="1" class="add-to-cart update-quantity button">加入購物車</a>
+            <h4>產品資訊</h4>
+            <span>{{ product.description }}</span>
+        </div>
+    </section>
+
+{% endblock content %}
