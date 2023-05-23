@@ -16,11 +16,14 @@ class OrderList(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        customer = request.user.customer
-        # print('customer:', customer)
-        queryset = Order.objects.filter(customer__name__iexact = customer).order_by('id')
-        serializer = OrderSerializer(queryset, many= True)
-        return Response(serializer.data)
+        if hasattr(request.user, "customer"): 
+            customer = request.user.customer
+            # print('customer:', customer)
+            queryset = Order.objects.filter(customer = customer).order_by('id')
+            serializer = OrderSerializer(queryset, many= True)
+            return Response(serializer.data)
+
+        return Response("該 User 沒有創建 Customer 物件")
 
     def post(self, request):
         serializer = OrderSerializer(data=request.data, many= False)

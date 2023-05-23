@@ -4,6 +4,7 @@ services:
 
   web:
     container_name: web
+    image: django-ecommerce-web:latest
     build: 
       context: backend
       dockerfile: ./docker/Dockerfile
@@ -18,10 +19,10 @@ services:
 
     entrypoint: /app/entrypoint.sh
     command: ["/bin/bash", "-c", "uwsgi --ini uwsgi.ini"]
+    volumes:
+      - static-data:/app/static
     # ports:
     #   - "8000:8080"
-    volumes:
-      - web_data:/app
     depends_on:
       - db
 
@@ -60,7 +61,7 @@ services:
     build: ./nginx
     restart: always
     volumes:
-      - web_data:/app
+      - static-data:/static
       - ./log:/var/log/nginx
     ports:
       - "8080:80"
@@ -69,7 +70,7 @@ services:
 
 volumes: 
   database-data:
-  web_data:
+  static-data: 
   # redis-data:
 
 networks:

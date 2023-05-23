@@ -6,7 +6,7 @@ from datetime import datetime
 # Create your models here.
 
 class Category(models.Model):
-	name = models.CharField(max_length= 50, default='General')
+	name = models.CharField(max_length= 50, default='General', unique=True)
 
 	def __str__(self):
 		return self.name 

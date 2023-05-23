@@ -4,42 +4,14 @@
 
 <section id="hero">
     <h1>自由潛水</h1>
-    <h2>Exciting & Adventurous</h2>
-    <h4>All gears that you need</h4>
-    <p>Come to join us!</p>
-    <button>Shop Now</button>
+    <h2>一口氣的平靜</h2>
+    <h4>所有你要的裝備都在這</h4>
+    <button>瀏覽裝備</button>
 </section>
 
-<!-- <section id= 'feature' class= "section-p1">
-    <div class="fe-box">
-        <img src="{% static 'images/features/f1.png' %}" alt="">
-        <h6>Free Shipping</h6>
-    </div>
-    <div class="fe-box">
-        <img src="{% static 'images/features/f1.png' %}" alt="">
-        <h6>Free Shipping</h6>
-    </div>
-    <div class="fe-box">
-        <img src="{% static 'images/features/f1.png' %}" alt="">
-        <h6>Free Shipping</h6>
-    </div>
-    <div class="fe-box">
-        <img src="{% static 'images/features/f1.png' %}" alt="">
-        <h6>Free Shipping</h6>
-    </div>
-    <div class="fe-box">
-        <img src="{% static 'images/features/f1.png' %}" alt="">
-        <h6>Free Shipping</h6>
-    </div>
-    <div class="fe-box">
-        <img src="{% static 'images/features/f1.png' %}" alt="">
-        <h6>Free Shipping</h6>
-    </div>
-</section> -->
-
 <section id= 'featured-product', class="section-p1">
-    <h2>Featured Products</h2>
-    <p>Products that are Most Viewed</p>
+    <h2>熱門商品</h2>
+    <p>最高瀏覽次數的商品</p>
     <div class="product-container">
     {% for product in products %}
         <div class="product">
@@ -64,24 +36,9 @@
 </section>
 
 <section id="banner" class= "seciton-m1">
-    <h2>Who are we?</h2>
-    <h4>We are professional freediving shop that sells professional gears</h4>
-    <button class="normal">About Us</button>
+    <h2>我們是誰?</h2>
+    <h4>我們是專業自潛員，也販售各種裝備</h4>
+    <button class="normal">關於我們</button>
 </section>
-
-<!-- <section id="sm-banner" class= "section-p1">
-    <div class= "banner-box">
-        <h4>Crazy Deals</h4>
-        <h2>Buy 1 get 1 free</h2>
-        <span>The best collections ever</span>
-        <button class="normal">Learn More</button>
-    </div>
-    <div class= "banner-box">
-        <h4>Crazy Deals</h4>
-        <h2>Buy 1 get 1 free</h2>
-        <span>The best collections ever</span>
-        <button class="normal">Learn More</button>
-    </div>
-</section> -->
 
 {% endblock content %}

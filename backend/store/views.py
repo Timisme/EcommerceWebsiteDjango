@@ -149,7 +149,7 @@ def updateItem(request):
 
         if action == 'add':
             orderItem.quantity = orderItem.quantity + quantity
-        elif action == 'remove':
+        if action == 'remove':
             orderItem.quantity = orderItem.quantity - quantity
 
         orderItem.save()

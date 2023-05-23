@@ -31,8 +31,12 @@ An ecommerce website from Django (**Django Rest Framework** included)
 ## Deployment
 
 > to build base image, run `docker build -t django-ecommerce-website-base:latest -f ./backend/docker/Dockerfile-base .`
-> to build image, run `docker-compose build `
+> to build image, run `docker-compose build`
 > To deploy, simply run `docker-compose up -d`
+
+## Developemnt
+
+> for developing, run `docker-compose up -d --build web`
 
 ## APIs
 

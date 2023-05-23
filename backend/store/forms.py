@@ -15,20 +15,20 @@ class ContactForm(ModelForm):
         widgets = {
             'name': forms.TextInput(attrs= {
                 # 'class': 'form-control',
-                'placeholder': 'YOUR NAME',
+                'placeholder': '姓名',
             }),
             'email': forms.EmailInput(attrs= {
                 # 'class': 'form-control',
-                'placeholder': 'YOUR E-MAIL',
+                'placeholder': '電子郵件',
             }),
             'subject': forms.TextInput(attrs= {
                 # 'class': 'form-control',
-                'placeholder': 'SUBJECT',
+                'placeholder': '主題',
             }), 
             'message': forms.Textarea(attrs= {
                 # 'class': 'form-control',
                 'cols': "30",
                 'rows': "10",
-                'placeholder': 'MESSAGE', 
+                'placeholder': '訊息', 
             }),
         }

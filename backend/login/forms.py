@@ -10,28 +10,28 @@ class CreateUserForm(UserCreationForm):
         label="",
         widget=forms.TextInput(attrs={
             # 'class': 'form-control',
-            'placeholder': 'Username',
+            'placeholder': '使用者名稱',
             })
     )
     email = forms.EmailField(
         label="",
         widget=forms.EmailInput(attrs={
             # 'class': 'form-control',
-            'placeholder': 'Email',
+            'placeholder': '電子信箱',
             })
     )
     password1 = forms.CharField(
         label="",
         widget=forms.PasswordInput(attrs={
             # 'class': 'form-control',
-            'placeholder': 'Password',
+            'placeholder': '密碼',
             })
     )
     password2 = forms.CharField(
         label="",
         widget=forms.PasswordInput(attrs={
             # 'class': 'form-control',
-            'placeholder': 'Password Again',
+            'placeholder': '請再輸入一次密碼',
             })
     )
     class Meta:
