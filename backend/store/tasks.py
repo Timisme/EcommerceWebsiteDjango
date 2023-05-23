@@ -2,6 +2,7 @@ import celery
 from django.core.mail import EmailMultiAlternatives, get_connection
 from django.template.loader import render_to_string
 from django.conf import settings
+from store.models import Newsletter
 
 @celery.shared_task
 def send_email():
@@ -9,14 +10,17 @@ def send_email():
         print("email sending is not enabled!")
         return  
 
-    context = {}
+    newsletters = Newsletter.objects.all()
+    to_emails = [ str(newsletter.email) for newsletter in newsletters]
+
+    if to_emails == []:
+        print("no email is found")
+        return
 
     html_body = render_to_string(
         'email.html',
-        context= context
+        context= {}
     )
-
-    to_emails = ['tim@data-sci.info']
 
     # Create an email instance  
     email = EmailMultiAlternatives(
