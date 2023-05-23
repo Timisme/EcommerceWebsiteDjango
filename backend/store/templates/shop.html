@@ -12,10 +12,9 @@
         <div id="category">
             <h2>產品類別</h2>
             <div class="list-group">
-                <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'shop' %}" class="">全部</a></button>
+                <a href="{% url 'shop' %}" class=""><button type="button" class="list-group-item list-group-item-action">全部</button></a>
                 {% for category in category_set %}
-                <!-- <button type="button" class="list-group-item list-group-item-action active" aria-current="true">服裝</button> -->
-                <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'category' pk=category.id %}" class="">{{ category.name }}</a></button>
+                    <a href="{% url 'shop_category' category_pk=category.id %}" class=""><button type="button" class="list-group-item list-group-item-action">{{ category.name }}</button></a>
                 {% endfor %}
             </div>
         </div>
