@@ -4,7 +4,9 @@ services:
 
   web:
     container_name: web
-    build: ./django_site
+    build: 
+      context: backend
+      dockerfile: ./docker/Dockerfile
     restart: always
     env_file:
       - .env
@@ -70,7 +72,7 @@ volumes:
   web_data:
   # redis-data:
 
-# networks:
-#   default:
-#     external:
-#       name: web-service
+networks:
+  default:
+    external:
+      name: django-ecommerce-website-network

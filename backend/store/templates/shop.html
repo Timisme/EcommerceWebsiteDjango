@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+    <section id="shop-header" class="page-header" >
+        <h2>#Stay Here</h2>
+        <p>Get All the Freediving Gears!</p>
+    </section>
+
+    <section id= "shop-section" class= "section-p1">
+        <div id="category">
+            <h2>Product Categories</h2>
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'shop' %}" class="">ALL</a></button>
+                {% for category in category_set %}
+                <!-- <button type="button" class="list-group-item list-group-item-action active" aria-current="true">服裝</button> -->
+                <button type="button" class="list-group-item list-group-item-action"><a href="{% url 'category' pk=category.id %}" class="">{{ category.name }}</a></button>
+                {% endfor %}
+            </div>
+        </div>
+        <div id= "shop-product" class="product-container">
+            {% for product in products %}
+            <div class="product">
+                <a href="{% url 'product_detail' pk=product.id %}" class="clickable"></a>
+                <img src="{{ product.imageURL }}" alt="">
+                <div class="description">
+                    <span>{{ product.category }}</span>
+                    <h5>{{ product.name }}</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>${{ product.price }}</h4>
+                </div>
+                <a href="{% url 'product_detail' pk=product.id %}" data-product="{{product.id}}" data-action="add" data-quantity="1" class="add-to-cart"><i class="fa-solid fa-cart-shopping cart"></i></a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="pagination" class= "section-p1">
+
+        {% if products.has_previous %}
+        <a href="?page={{ products.previous_page_number }}" class=""><i class="fa-solid fa-arrow-left-long"></i></a>
+        {% endif %}
+
+        <!-- <a href="" class="">1</a> -->
+        <a href="?page={{ products.number }}" class="">Page {{ products.number }} of {{ products.paginator.num_pages }}</a>
+
+        {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}" class=""><i class="fa-solid fa-arrow-right-long"></i></a>
+        {% endif %}
+    </section>
+
+{% endblock %}

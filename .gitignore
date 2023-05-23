@@ -1,3 +1,3 @@
-DjangoEcommerceSite/settings_local.py
+config/settings_local.py
 .env
 log/*
