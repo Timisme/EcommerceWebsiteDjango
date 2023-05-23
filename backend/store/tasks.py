@@ -6,11 +6,10 @@ from django.conf import settings
 @celery.shared_task
 def send_email():
     if not settings.ENABLE_EMAIL:
+        print("email sending is not enabled!")
         return  
 
-    context = {
-
-    }
+    context = {}
 
     html_body = render_to_string(
         'email.html',
@@ -21,7 +20,7 @@ def send_email():
 
     # Create an email instance  
     email = EmailMultiAlternatives(
-        subject = 'hi',
+        subject = 'test',
         from_email = 'tim@data-sci.info',
         to = to_emails
     )

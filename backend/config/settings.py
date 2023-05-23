@@ -57,6 +57,35 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "/app/log/backend.log"
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -162,11 +191,9 @@ CACHES = {
 CACHE_TTL = 60*1
 
 # CELERY STUFF
-BROKER_URL = os.getenv('BROKER_URL', 'redis://localhost:6379')
-CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379')
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+CELERY_BROKER_URL = os.getenv('BROKER_URL', 'amqp://guest@broker')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'rpc://guest@broker')
+CELERY_DEFAULT_QUEUE="django-ecommerce"
 CELERY_TIMEZONE = 'Asia/Taipei'
 
 try:
@@ -181,7 +208,10 @@ CELERY_BEAT_SCHEDULE = {
             day_of_week= '*',
             hour= '*',
             minute= '*/1'
-        )
+        ),
+        "options": {
+            "queue": "django-ecommerce"
+        }
     }
 }
 
